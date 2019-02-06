@@ -3,6 +3,7 @@ package org.wit.blocky
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.wit.blocky.decorators.EventDecorator
 import org.wit.blocky.main.MainApp
 
 class MainActivity : AppCompatActivity() {
@@ -14,11 +15,11 @@ class MainActivity : AppCompatActivity() {
 
         app = application as MainApp
 
-        calendarView.setOnDateChangedListener { _, _, _ ->
-            calendarView.addDecorator(
-                EventDecorator(R.color.colorPrimary, listOf(calendarView.selectedDate))
-            )
-        }
+//        calendarView.setOnDateChangedListener { _, _, _ ->
+//            calendarView.addDecorator(
+//                EventDecorator(R.color.colorPrimary, listOf(calendarView.selectedDate))
+//            )
+//        }
     }
 
 }

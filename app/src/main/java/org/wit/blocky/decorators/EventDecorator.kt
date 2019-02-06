@@ -1,4 +1,4 @@
-package org.wit.blocky
+package org.wit.blocky.decorators
 
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
 import com.prolificinteractive.materialcalendarview.DayViewFacade
