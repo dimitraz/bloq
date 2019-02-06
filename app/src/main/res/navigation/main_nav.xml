@@ -2,30 +2,44 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main_nav"
-            app:startDestination="@id/blankFragment">
+            app:startDestination="@id/destination_home">
 
-    <activity android:id="@+id/mainActivity"
-              android:name="org.wit.blocky.MainActivity"
-              android:label="activity_main"
-              tools:layout="@layout/activity_main"/>
+    <!-- Main activity -->
+    <activity
+            android:id="@+id/mainActivity"
+            android:name="org.wit.blocky.MainActivity"
+            android:label="activity_main"
+            tools:layout="@layout/activity_main"/>
 
-    <fragment android:id="@+id/blankFragment"
-              android:name="org.wit.blocky.views.BlankFragment"
-              android:label="blank_fragment"
-              tools:layout="@layout/blank_fragment">
+    <!-- Home fragment (start dest) -->
+    <fragment
+            android:id="@+id/destination_home"
+            android:name="org.wit.blocky.views.home.HomeFragment"
+            android:label="homeFragment"
+            tools:layout="@layout/home_fragment">
         <action
-                android:id="@+id/to_overview"
-                app:destination="@id/destination_overview"
-                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-
-        <action android:id="@+id/action_blankFragment_to_mainActivity"
-                app:destination="@id/mainActivity"/>
+                android:id="@+id/action_homeFragment_to_destination_overview"
+                app:destination="@id/destination_overview"/>
+        <action android:id="@+id/action_destination_home_to_destination_profile"
+                app:destination="@id/destination_profile"/>
     </fragment>
 
+    <!-- Overview fragment -->
     <fragment
             android:id="@+id/destination_overview"
             android:name="org.wit.blocky.views.overview.OverviewFragment"
             android:label="overview_fragment"
-            tools:layout="@layout/overview_fragment"/>
+            tools:layout="@layout/overview_fragment">
+        <action
+                android:id="@+id/action_destination_overview_to_homeFragment"
+                app:destination="@id/destination_home"/>
+    </fragment>
+
+    <!-- Profile fragment-->
+    <fragment
+            android:id="@+id/destination_profile"
+            android:name="org.wit.blocky.views.profile.ProfileFragment"
+            android:label="profileFragment"
+            tools:layout="@layout/profile_fragment"/>
+
 </navigation>
