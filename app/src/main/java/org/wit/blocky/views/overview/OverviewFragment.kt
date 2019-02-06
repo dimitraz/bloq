@@ -1,13 +1,14 @@
 package org.wit.blocky.views.overview
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.overview_fragment.*
 import org.wit.blocky.R
+import org.wit.blocky.decorators.EventDecorator
 
 class OverviewFragment : Fragment() {
 
@@ -27,7 +28,12 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(OverviewViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        calendarView.setOnDateChangedListener { _, _, _ ->
+            calendarView.addDecorator(
+                EventDecorator(R.color.colorPrimary, listOf(calendarView.selectedDate))
+            )
+        }
     }
 
 }
