@@ -41,11 +41,15 @@
     <!-- Profile fragment-->
     <fragment
             android:id="@+id/destination_profile"
-            android:name="org.wit.blocky.views.profile.EntryFragment"
+            android:name="org.wit.blocky.views.profile.ProfileFragment"
             android:label="profileFragment"
             tools:layout="@layout/profile_fragment"/>
+
+    <!-- Entry fragment-->
     <fragment android:id="@+id/destination_entry" android:name="org.wit.blocky.views.entry.EntryFragment"
               android:label="EntryFragment"/>
+
+    <!-- Entry Pager fragment-->
     <fragment android:id="@+id/destination_entry_pager" android:name="org.wit.blocky.views.entryPager.EntryPagerFragment"
               android:label="EntryPagerFragment"/>
 

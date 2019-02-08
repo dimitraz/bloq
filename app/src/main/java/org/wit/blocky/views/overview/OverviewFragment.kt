@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.overview_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.decorators.EventDecorator
@@ -29,11 +30,12 @@ class OverviewFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(OverviewViewModel::class.java)
 
-//        calendarView.setOnDateChangedListener { _, _, _ ->
-//            calendarView.addDecorator(
-//                EventDecorator(R.color.colorPrimary, listOf(calendarView.selectedDate))
-//            )
-//        }
+        calendarView.state().edit().setMaximumDate(CalendarDay.today()).commit()
+        calendarView.setOnDateChangedListener { _, _, _ ->
+            calendarView.addDecorator(
+                EventDecorator(context!!, R.color.colorPrimary, listOf(calendarView.selectedDate))
+            )
+        }
     }
 
 }
