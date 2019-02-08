@@ -29,11 +29,11 @@ class OverviewFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(OverviewViewModel::class.java)
 
-        calendarView.setOnDateChangedListener { _, _, _ ->
-            calendarView.addDecorator(
-                EventDecorator(R.color.colorPrimary, listOf(calendarView.selectedDate))
-            )
-        }
+//        calendarView.setOnDateChangedListener { _, _, _ ->
+//            calendarView.addDecorator(
+//                EventDecorator(R.color.colorPrimary, listOf(calendarView.selectedDate))
+//            )
+//        }
     }
 
 }
