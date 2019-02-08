@@ -12,7 +12,7 @@ import org.wit.blocky.R
 class ProfileFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ProfileFragment()
+        fun newInstance() = EntryFragment()
     }
 
     private lateinit var viewModel: ProfileViewModel

@@ -3,6 +3,7 @@ package org.wit.blocky.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.home_card.view.*
 import org.wit.blocky.R
@@ -26,6 +27,9 @@ class HomeAdapter(private var entries: List<JournalEntry>) : RecyclerView.Adapte
             itemView.entry_title.text = entry.title
             itemView.entry_notes.text = entry.notes
             itemView.entry_favourite.isChecked = entry.bookmarked
+            itemView.setOnClickListener {
+
+            }
         }
     }
 

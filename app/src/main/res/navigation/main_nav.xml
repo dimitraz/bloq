@@ -22,6 +22,7 @@
                 app:destination="@id/destination_overview"/>
         <action android:id="@+id/action_destination_home_to_destination_profile"
                 app:destination="@id/destination_profile"/>
+        <action android:id="@+id/action_destination_home_to_destination_entry" app:destination="@id/destination_entry"/>
     </fragment>
 
     <!-- Overview fragment -->
@@ -38,8 +39,10 @@
     <!-- Profile fragment-->
     <fragment
             android:id="@+id/destination_profile"
-            android:name="org.wit.blocky.views.profile.ProfileFragment"
+            android:name="org.wit.blocky.views.profile.EntryFragment"
             android:label="profileFragment"
             tools:layout="@layout/profile_fragment"/>
+    <fragment android:id="@+id/destination_entry" android:name="org.wit.blocky.views.entry.EntryFragment"
+              android:label="EntryFragment"/>
 
 </navigation>
