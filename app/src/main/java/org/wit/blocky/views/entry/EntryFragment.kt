@@ -11,7 +11,7 @@ import org.wit.blocky.models.JournalEntry
 
 class EntryFragment : Fragment() {
 
-    private lateinit var viewModel: EntryViewModel
+    private lateinit var viewModel: EntryPagerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +22,7 @@ class EntryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EntryViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(EntryPagerViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
