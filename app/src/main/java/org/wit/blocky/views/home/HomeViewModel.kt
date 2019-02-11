@@ -15,7 +15,8 @@ class HomeViewModel : ViewModel() {
                     bookmarked = true,
                     notes = "$i Test entry",
                     date = CalendarDay.today(),
-                    image = "https://www.sciencemag.org/sites/default/files/styles/inline__450w__no_aspect/public/Taiwan_16x9.jpg?itok=uXcThZKL"
+                    image = "https://www.sciencemag.org/sites/default/files/styles/inline__450w__no_aspect/public/Taiwan_16x9.jpg?itok=uXcThZKL",
+                    category = "Lifestyle"
                 )
             )
         }
@@ -26,7 +27,8 @@ class HomeViewModel : ViewModel() {
                     title = "New Entry $i",
                     bookmarked = true,
                     notes = "$i Test entry",
-                    date = CalendarDay.today()
+                    date = CalendarDay.today(),
+                    category = "Lifestyle"
                 )
             )
         }

@@ -43,7 +43,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="10dp"/>
+                app:layout_constraintEnd_toEndOf="parent" android:paddingTop="10dp"/>
 
     </LinearLayout>
 </layout>
