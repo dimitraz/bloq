@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.entry_fragment.*
-import kotlinx.android.synthetic.main.prompt_card.view.*
 import org.wit.blocky.R
-import org.wit.blocky.adapters.GridAdapter
+import org.wit.blocky.adapters.PromptAdapter
 import org.wit.blocky.databinding.EntryFragmentBinding
+import org.wit.blocky.helpers.CalendarHelpers
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.JournalEntry
 
@@ -34,28 +35,17 @@ class EntryFragment : Fragment() {
             this, EntryViewModelFactory(entry)
         ).get(EntryViewModel::class.java)
         binding.viewModel = viewModel
+        binding.helpers = CalendarHelpers()
 
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         app = activity!!.application as MainApp
 
-        val gridAdapter = GridAdapter(context!!, app.template)
-        grid.adapter = gridAdapter
-//        app.template.forEachIndexed { index, s ->
-//            val inflater = LayoutInflater.from(context)
-//            var layout = inflater.inflate(R.layout.prompt_card, null, false)
-//            layout.prompt.text = s
-//
-//            if (index % 2 == 0) {
-//                grid.addView(layout)
-//            } else {
-//                grid.addView(layout)
-//            }
-//        }
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = PromptAdapter(app.template)
     }
 
     companion object {
