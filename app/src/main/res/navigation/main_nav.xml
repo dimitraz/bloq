@@ -36,6 +36,8 @@
         <action
                 android:id="@+id/action_destination_overview_to_homeFragment"
                 app:destination="@id/destination_home"/>
+        <action android:id="@+id/to_entry_fragment"
+                app:destination="@id/destination_entry"/>
     </fragment>
 
     <!-- Profile fragment-->

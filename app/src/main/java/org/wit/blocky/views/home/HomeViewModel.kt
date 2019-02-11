@@ -14,7 +14,7 @@ class HomeViewModel : ViewModel() {
                     title = "New Entry $i",
                     bookmarked = true,
                     notes = "Test entry",
-                    calendarDay = CalendarDay.today()
+                    date = CalendarDay.today()
                 )
             )
         }

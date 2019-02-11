@@ -18,6 +18,6 @@ class EventDecorator(private val context: Context, private val color: Int, dates
 
     override fun decorate(view: DayViewFacade) {
         view.addSpan(DotSpan(5f, color))
-        view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ic_launcher_background)!!)
+        view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.colorPrimary)!!)
     }
 }

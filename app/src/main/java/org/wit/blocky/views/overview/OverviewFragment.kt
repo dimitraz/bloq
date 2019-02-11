@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.overview_fragment.*
 import org.wit.blocky.R
-import org.wit.blocky.decorators.EventDecorator
+import org.wit.blocky.models.JournalEntry
 
 class OverviewFragment : Fragment() {
 
@@ -31,11 +33,18 @@ class OverviewFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(OverviewViewModel::class.java)
 
         calendarView.state().edit().setMaximumDate(CalendarDay.today()).commit()
-        calendarView.setOnDateChangedListener { _, _, _ ->
-            calendarView.addDecorator(
-                EventDecorator(context!!, R.color.colorPrimary, listOf(calendarView.selectedDate))
+        calendarView.setOnDateChangedListener { widget, date, selected ->
+            val entry = JournalEntry(title = "Hello", date = date)
+            val bundle = bundleOf(
+                "entry" to entry
             )
+            Navigation.findNavController(view!!).navigate(R.id.to_entry_fragment, bundle)
         }
+//        calendarView.setOnDateChangedListener { _, _, _ ->
+//            calendarView.addDecorator(
+//                EventDecorator(context!!, R.color.colorPrimary, listOf(calendarView.selectedDate))
+//            )
+//        }
     }
 
 }
