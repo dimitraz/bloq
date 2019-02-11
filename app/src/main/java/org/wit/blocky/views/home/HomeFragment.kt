@@ -9,7 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.home_card.view.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
@@ -40,7 +42,7 @@ class HomeFragment : Fragment(), EntryListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = GridLayoutManager(activity, 2)
         recyclerView.adapter = HomeAdapter(viewModel.entries, this)
     }
 

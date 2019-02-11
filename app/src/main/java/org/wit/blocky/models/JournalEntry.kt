@@ -8,5 +8,6 @@ data class JournalEntry(
     var bookmarked: Boolean = false,
     var date: CalendarDay?,
     var prompts: HashMap<String, String>? = null,
-    var notes: String? = ""
+    var notes: String? = "",
+    var image: String = ""
 ) : Serializable
