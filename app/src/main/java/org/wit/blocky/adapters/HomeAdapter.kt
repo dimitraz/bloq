@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_card.view.*
 import org.wit.blocky.R
+import org.wit.blocky.helpers.dateToString
 import org.wit.blocky.models.JournalEntry
 
 class HomeAdapter(
@@ -34,7 +35,7 @@ class HomeAdapter(
     ) :
         RecyclerView.ViewHolder(itemView) {
         fun bind(entry: JournalEntry, listener: EntryListener) {
-            itemView.entry_date.text = entry.date.toString()
+            itemView.entry_date.text = dateToString(entry.date!!)
             itemView.entry_notes.text = entry.notes
             itemView.entry_favourite.isChecked = entry.bookmarked
             itemView.setOnClickListener {

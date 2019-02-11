@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_card.view.*
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -42,7 +43,7 @@ class HomeFragment : Fragment(), EntryListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recyclerView.layoutManager = GridLayoutManager(activity, 2)
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = HomeAdapter(viewModel.entries, this)
     }
 
