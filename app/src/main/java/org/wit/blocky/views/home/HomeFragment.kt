@@ -48,10 +48,10 @@ class HomeFragment : Fragment(), EntryListener {
         recyclerView.adapter = HomeAdapter(viewModel.entries, this)
 
         button.setOnClickListener {
-            if (chipGroup.isVisible) {
-                collapse(chipGroup)
+            if (filter.isVisible) {
+                collapse(filter)
             } else {
-                expand(chipGroup)
+                expand(filter)
             }
         }
     }
