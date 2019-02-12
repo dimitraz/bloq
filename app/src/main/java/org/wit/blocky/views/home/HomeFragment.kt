@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.home_card.view.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.HomeAdapter
 import org.wit.blocky.databinding.HomeFragmentBinding
 import org.wit.blocky.models.JournalEntry
+
 
 class HomeFragment : Fragment(), EntryListener {
 
@@ -45,6 +46,14 @@ class HomeFragment : Fragment(), EntryListener {
 
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = HomeAdapter(viewModel.entries, this)
+
+        button.setOnClickListener {
+            if (chipGroup.isVisible) {
+                collapse(chipGroup)
+            } else {
+                expand(chipGroup)
+            }
+        }
     }
 
     // Add listener for when an entry card is pressed
@@ -54,6 +63,55 @@ class HomeFragment : Fragment(), EntryListener {
             "entry" to entry
         )
         Navigation.findNavController(view!!).navigate(R.id.to_entry_pager, bundle)
+    }
+
+    fun expand(v: View) {
+        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val targetHeight = v.measuredHeight
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.layoutParams.height = 1
+        v.visibility = View.VISIBLE
+        val a = object : Animation() {
+            protected override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                v.layoutParams.height = if (interpolatedTime == 1f)
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                else
+                    (targetHeight * interpolatedTime).toInt()
+                v.requestLayout()
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        // 1dp/ms
+        a.duration = (targetHeight / v.context.resources.displayMetrics.density).toInt().toLong()
+        v.startAnimation(a)
+    }
+
+    fun collapse(v: View) {
+        val initialHeight = v.measuredHeight
+
+        val a = object : Animation() {
+            protected override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                if (interpolatedTime == 1f) {
+                    v.visibility = View.GONE
+                } else {
+                    v.layoutParams.height = initialHeight - (initialHeight * interpolatedTime).toInt()
+                    v.requestLayout()
+                }
+            }
+
+            override fun willChangeBounds(): Boolean {
+                return true
+            }
+        }
+
+        // 1dp/ms
+        a.duration = (initialHeight / v.context.resources.displayMetrics.density).toInt().toLong()
+        v.startAnimation(a)
     }
 
 }
