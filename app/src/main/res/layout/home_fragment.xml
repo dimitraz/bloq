@@ -15,10 +15,9 @@
                 android:id="@+id/button" android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/outline_expand_more_24"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="@+id/searchView"
-                app:layout_constraintVertical_bias="1.0"/>
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/searchView"
+                android:src="@drawable/outline_fiber_manual_record_24"/>
 
         <SearchView
                 android:layout_width="0dp"
@@ -43,12 +42,12 @@
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:id="@+id/filter"
-                android:background="#efefef"
+                android:background="@drawable/stroke"
                 android:padding="15dp"
-                android:layout_height="wrap_content" android:layout_marginTop="16dp"
+                android:layout_height="wrap_content" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/searchView" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone">
+                android:visibility="visible">
 
             <TextView android:text="Filter by:"
                       android:paddingBottom="8dp"
@@ -81,6 +80,7 @@
                         android:id="@+id/chip3"/>
 
             </com.google.android.material.chip.ChipGroup>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
