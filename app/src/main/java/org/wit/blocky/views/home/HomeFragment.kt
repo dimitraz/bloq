@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -44,8 +45,9 @@ class HomeFragment : Fragment(), EntryListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val adapter = HomeAdapter(viewModel, this)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
-        recyclerView.adapter = HomeAdapter(viewModel.entries, this)
+        recyclerView.adapter = adapter
 
         button.setOnClickListener {
             if (filter.isVisible) {
@@ -54,6 +56,18 @@ class HomeFragment : Fragment(), EntryListener {
                 expand(filter)
             }
         }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+        })
+
     }
 
     // Add listener for when an entry card is pressed

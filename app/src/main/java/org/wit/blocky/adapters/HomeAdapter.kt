@@ -5,18 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_card.view.*
 import org.wit.blocky.R
 import org.wit.blocky.helpers.CalendarHelpers
 import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.views.home.HomeViewModel
 
 class HomeAdapter(
-    private val entries: List<JournalEntry>,
+    private val viewModel: HomeViewModel,
     private val listener: EntryListener
 ) :
-    RecyclerView.Adapter<HomeAdapter.MainHolder>() {
+    RecyclerView.Adapter<HomeAdapter.MainHolder>(), Filterable {
+    val entries = viewModel.entries
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MainHolder {
         return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.home_card, parent, false), entries)
@@ -27,6 +31,38 @@ class HomeAdapter(
     override fun onBindViewHolder(holder: HomeAdapter.MainHolder, position: Int) {
         val entry = entries[holder.adapterPosition]
         holder.bind(entry, listener)
+    }
+
+    override fun getFilter(): Filter {
+        return searchFilter
+    }
+
+    private val searchFilter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): Filter.FilterResults {
+            val filteredList: MutableList<JournalEntry> = ArrayList()
+
+            if (constraint == null || constraint.isEmpty()) {
+                filteredList.addAll(viewModel.allEntries)
+            } else {
+                val filterPattern = constraint.toString().toLowerCase().trim { it <= ' ' }
+
+                for (item in viewModel.allEntries) {
+                    if (item.notes!!.toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+
+            val results = Filter.FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
+            viewModel.entries.clear()
+            viewModel.entries.addAll(results.values as List<JournalEntry>)
+            notifyDataSetChanged()
+        }
     }
 
     class MainHolder constructor(

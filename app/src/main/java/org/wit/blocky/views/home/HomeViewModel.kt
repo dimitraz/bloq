@@ -5,11 +5,12 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.wit.blocky.models.JournalEntry
 
 class HomeViewModel : ViewModel() {
+    val allEntries: MutableList<JournalEntry> = mutableListOf()
     val entries: MutableList<JournalEntry> = mutableListOf()
 
     init {
         for (i in 1..5) {
-            entries.add(
+            allEntries.add(
                 JournalEntry(
                     title = "New Entry $i",
                     bookmarked = true,
@@ -22,7 +23,7 @@ class HomeViewModel : ViewModel() {
         }
 
         for (i in 5..10) {
-            entries.add(
+            allEntries.add(
                 JournalEntry(
                     title = "New Entry $i",
                     bookmarked = true,
@@ -32,5 +33,7 @@ class HomeViewModel : ViewModel() {
                 )
             )
         }
+
+        entries.addAll(allEntries)
     }
 }
