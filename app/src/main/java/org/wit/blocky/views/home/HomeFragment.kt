@@ -1,6 +1,7 @@
 package org.wit.blocky.views.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,17 +9,20 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.HomeAdapter
 import org.wit.blocky.databinding.HomeFragmentBinding
+import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.JournalEntry
 
 
@@ -29,6 +33,7 @@ class HomeFragment : Fragment(), EntryListener {
     }
 
     private lateinit var viewModel: HomeViewModel
+    private lateinit var app: MainApp
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +50,8 @@ class HomeFragment : Fragment(), EntryListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        app = activity!!.application as MainApp
+
         val adapter = HomeAdapter(viewModel, this)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = adapter
@@ -57,13 +64,38 @@ class HomeFragment : Fragment(), EntryListener {
             }
         }
 
+        for (item in app.categories) {
+            val chip = Chip(chipGroup.context)
+            chip.text = "$item"
+            chip.isClickable = true
+            chip.isCheckable = true
+            chipGroup.addView(chip)
+        }
+
+        for (item in chipGroup.children) {
+            (item as Chip).setOnCheckedChangeListener { compoundButton, b ->
+                if (item.isChecked) {
+                    viewModel.categories.add(item.text.toString())
+                    Log.d("Filter", "0 Viewmodel categories: ${viewModel.categories}")
+                } else {
+                    Log.d("Filter", "1 Viewmodel categories: ${viewModel.categories}")
+                    if (viewModel.categories.contains(item.text.toString())) {
+                        viewModel.categories.remove(item.text.toString())
+                        Log.d("Filter", "2 Viewmodel categories: ${viewModel.categories}")
+                    }
+                }
+
+                adapter.filter.filter("")
+            }
+        }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                adapter.filter.filter(newText)
+            override fun onQueryTextChange(query: String): Boolean {
+                adapter.filter.filter(query)
                 return false
             }
         })

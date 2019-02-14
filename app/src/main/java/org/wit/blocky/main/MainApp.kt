@@ -7,6 +7,7 @@ class MainApp : Application() {
     // Create map of entries, load entry
     // by searching date key in map
     lateinit var template: MutableList<String>
+    lateinit var categories: MutableList<String>
 
     override fun onCreate() {
         super.onCreate()
@@ -17,6 +18,13 @@ class MainApp : Application() {
             "Question 3",
             "Question 4",
             "Question 5"
+        )
+
+        categories = mutableListOf(
+            "Lifestyle",
+            "Personal",
+            "Travel",
+            "Favourites"
         )
     }
 }
