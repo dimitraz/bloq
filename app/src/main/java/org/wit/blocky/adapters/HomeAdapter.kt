@@ -41,14 +41,12 @@ class HomeAdapter(
             val filteredList: MutableList<JournalEntry> = ArrayList()
 
             if (constraint == null || constraint.isEmpty()) {
-                if (viewModel.categories.isNotEmpty()) {
-                    for (item in viewModel.allEntries) {
-                        if (item.category in viewModel.categories) {
-                            filteredList.add(item)
-                        }
+                for (item in viewModel.allEntries) {
+                    if (viewModel.categories.isNotEmpty() && item.category in viewModel.categories) {
+                        filteredList.add(item)
+                    } else if (viewModel.categories.isEmpty()) {
+                        filteredList.add(item)
                     }
-                } else {
-                    filteredList.addAll(viewModel.allEntries)
                 }
             } else {
                 val filterPattern = constraint.toString().toLowerCase().trim { it <= ' ' }
@@ -57,7 +55,7 @@ class HomeAdapter(
                     if (item.notes!!.toLowerCase().contains(filterPattern)) {
                         if (viewModel.categories.isNotEmpty() && item.category in viewModel.categories) {
                             filteredList.add(item)
-                        } else {
+                        } else if (viewModel.categories.isEmpty()) {
                             filteredList.add(item)
                         }
                     }
@@ -73,6 +71,14 @@ class HomeAdapter(
             viewModel.entries.clear()
             viewModel.entries.addAll(results.values as List<JournalEntry>)
             notifyDataSetChanged()
+        }
+    }
+
+    fun filterCategories(item: JournalEntry, filteredList: MutableList<JournalEntry>) {
+        if (viewModel.categories.isNotEmpty() && item.category in viewModel.categories) {
+            filteredList.add(item)
+        } else if (viewModel.categories.isEmpty()) {
+            filteredList.add(item)
         }
     }
 

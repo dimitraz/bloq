@@ -49,13 +49,13 @@ class HomeFragment : Fragment(), EntryListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         app = activity!!.application as MainApp
 
         val adapter = HomeAdapter(viewModel, this)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = adapter
 
+        // Collapse or expand the filter view
         button.setOnClickListener {
             if (filter.isVisible) {
                 collapse(filter)
@@ -64,6 +64,7 @@ class HomeFragment : Fragment(), EntryListener {
             }
         }
 
+        // Add a chip to the chipGroup for each available category
         for (item in app.categories) {
             val chip = Chip(chipGroup.context)
             chip.text = "$item"
@@ -72,20 +73,23 @@ class HomeFragment : Fragment(), EntryListener {
             chipGroup.addView(chip)
         }
 
+        // Chip listeners
         for (item in chipGroup.children) {
-            (item as Chip).setOnCheckedChangeListener { compoundButton, b ->
+            (item as Chip).setOnCheckedChangeListener { _, _ ->
+                val category = item.text.toString()
                 if (item.isChecked) {
-                    viewModel.categories.add(item.text.toString())
-                    Log.d("Filter", "0 Viewmodel categories: ${viewModel.categories}")
+                    // Add the chip to the list of categories to filter by
+                    viewModel.categories.add(category)
                 } else {
-                    Log.d("Filter", "1 Viewmodel categories: ${viewModel.categories}")
-                    if (viewModel.categories.contains(item.text.toString())) {
-                        viewModel.categories.remove(item.text.toString())
-                        Log.d("Filter", "2 Viewmodel categories: ${viewModel.categories}")
+                    if (viewModel.categories.contains(category)) {
+                        // The chip is now deselected, so remove it from
+                        // the list of categories to filter by
+                        viewModel.categories.remove(category)
                     }
                 }
 
-                adapter.filter.filter("")
+                // Filter by selected categories
+                adapter.filter.filter(searchView.query)
             }
         }
 
