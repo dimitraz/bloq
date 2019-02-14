@@ -1,14 +1,12 @@
 package org.wit.blocky.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.home_card.view.*
 import org.wit.blocky.R
 import org.wit.blocky.helpers.CalendarHelpers
@@ -20,6 +18,7 @@ class HomeAdapter(
     private val listener: EntryListener
 ) :
     RecyclerView.Adapter<HomeAdapter.MainHolder>(), Filterable {
+
     val entries = viewModel.entries
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MainHolder {
@@ -42,13 +41,25 @@ class HomeAdapter(
             val filteredList: MutableList<JournalEntry> = ArrayList()
 
             if (constraint == null || constraint.isEmpty()) {
-                filteredList.addAll(viewModel.allEntries)
+                if (viewModel.categories.isNotEmpty()) {
+                    for (item in viewModel.allEntries) {
+                        if (item.category in viewModel.categories) {
+                            filteredList.add(item)
+                        }
+                    }
+                } else {
+                    filteredList.addAll(viewModel.allEntries)
+                }
             } else {
                 val filterPattern = constraint.toString().toLowerCase().trim { it <= ' ' }
 
                 for (item in viewModel.allEntries) {
                     if (item.notes!!.toLowerCase().contains(filterPattern)) {
-                        filteredList.add(item)
+                        if (viewModel.categories.isNotEmpty() && item.category in viewModel.categories) {
+                            filteredList.add(item)
+                        } else {
+                            filteredList.add(item)
+                        }
                     }
                 }
             }
@@ -72,26 +83,20 @@ class HomeAdapter(
         RecyclerView.ViewHolder(itemView) {
         fun bind(entry: JournalEntry, listener: EntryListener) {
             itemView.entry_date.text = CalendarHelpers().dateToString(entry.date!!)
-            itemView.entry_category.text = "Lifestyle"
+            itemView.entry_category.text = entry.category
             itemView.entry_favourite.isChecked = entry.bookmarked
             itemView.setOnClickListener {
                 listener.onEntryClick(entries.indexOf(entry), entry)
             }
             if (entry.image.isNotEmpty()) {
-                itemView.imageView.viewTreeObserver.addOnGlobalLayoutListener(object :
-                    ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        // Only call once
-                        itemView.imageView.viewTreeObserver
-                            .removeOnGlobalLayoutListener(this)
+                itemView.imageView.visibility = View.VISIBLE
 
-                        // Load image into image view
-                        Picasso.get()
-                            .load(R.drawable.image)
-                            .resize(itemView.imageView.measuredWidth, 0)
-                            .centerCrop().into(itemView.imageView)
-                    }
-                })
+                Glide
+                    .with(itemView.context)
+                    .load(R.drawable.image)
+                    .into(itemView.imageView)
+            } else {
+                itemView.imageView.visibility = View.GONE
             }
         }
     }
