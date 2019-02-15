@@ -26,6 +26,8 @@ class EntryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
+
         val bundle = arguments
         val entry = bundle!!.getSerializable("entry") as JournalEntry
         val binding: EntryFragmentBinding =

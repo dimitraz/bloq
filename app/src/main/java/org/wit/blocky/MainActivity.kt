@@ -1,10 +1,12 @@
 package org.wit.blocky
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.wit.blocky.main.MainApp
 
@@ -14,10 +16,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         app = application as MainApp
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        setupActionBarWithNavController(this, navController)
         setupBottomNavMenu(navController)
     }
 
@@ -29,6 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 
 }
