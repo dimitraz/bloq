@@ -28,7 +28,6 @@ class EntryFragment : Fragment() {
         setHasOptionsMenu(true)
 
         val bundle = arguments
-        Log.i("BLOQ", "$bundle")
         val date = bundle!!.getSerializable("date") as CalendarDate
         val binding: EntryFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.entry_fragment, container, false)
@@ -65,6 +64,7 @@ class EntryFragment : Fragment() {
             R.id.item_save -> {
                 edit = false
                 showPrompts()
+                viewModel.saveEntry()
             }
         }
 

@@ -6,7 +6,7 @@ data class JournalEntry(
     var fbId: String = "",
     var title: String = "",
     var bookmarked: Boolean = false,
-    var date: CalendarDate,
+    var date: CalendarDate? = null,
     var prompts: HashMap<String, String>? = null,
     var notes: String? = "",
     var image: String = "",

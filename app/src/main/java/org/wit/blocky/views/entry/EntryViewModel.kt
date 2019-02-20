@@ -12,11 +12,16 @@ class EntryViewModel(application: Application, val date: CalendarDate) : ViewMod
     var app = application as MainApp
 
     init {
-        entry = if (app.entries.findByDate(date) != null) {
-            app.entries.findByDate(date)!!
+        if (app.entries.findByDate(date) != null) {
+            entry = app.entries.findByDate(date)!!
         } else {
-            JournalEntry(date = date)
+            entry = JournalEntry(date = date)
+            app.entries.create(entry)
         }
+    }
+
+    fun saveEntry() {
+        app.entries.update(entry)
     }
 }
 

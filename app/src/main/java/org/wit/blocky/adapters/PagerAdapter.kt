@@ -11,7 +11,7 @@ class PagerAdapter(fragmentManager: FragmentManager, private val entries: Mutabl
     FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
-        val fragment = EntryFragment.newInstance(entries[position].date)
+        val fragment = EntryFragment.newInstance(entries[position].date!!)
         fragment.arguments = bundleOf(
             "date" to entries[position].date
         )

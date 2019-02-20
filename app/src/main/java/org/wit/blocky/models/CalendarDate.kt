@@ -3,9 +3,9 @@ package org.wit.blocky.models
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import java.io.Serializable
 
-data class CalendarDate(val date: CalendarDay) : Serializable {
+data class CalendarDate(val date: CalendarDay? = null) : Serializable {
     override fun toString(): String {
-        val month = when (date.month) {
+        val month = when (date?.month) {
             0 -> "January"
             1 -> "February"
             2 -> "March"
@@ -20,6 +20,6 @@ data class CalendarDate(val date: CalendarDay) : Serializable {
             11 -> "December"
             else -> ""
         }
-        return "${date.day} $month"
+        return "${date?.day} $month"
     }
 }

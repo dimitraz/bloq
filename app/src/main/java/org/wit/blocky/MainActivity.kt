@@ -1,6 +1,8 @@
 package org.wit.blocky
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -19,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         app = application as MainApp
+        app.entries.fetchEntries {
+            Log.i("Bloq", "Entries done")
+        }
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setupActionBarWithNavController(this, navController)
