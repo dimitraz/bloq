@@ -3,16 +3,26 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/empty"
-        android:icon="@drawable/outline_more_vert_24"
-        app:showAsAction="ifRoom"
-        android:title="@string/toolbar_settings">
+            android:id="@+id/item_edit"
+            android:title="Edit"
+            app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/item_save"
+            android:title="Save"
+            app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/empty"
+            android:icon="@drawable/outline_more_vert_24"
+            app:showAsAction="ifRoom"
+            android:title="@string/toolbar_settings">
 
         <menu>
             <item
-                android:id="@+id/logout"
-                app:showAsAction="ifRoom"
-                android:title="@string/toolbar_logout"/>
+                    android:id="@+id/logout"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_logout"/>
         </menu>
 
     </item>

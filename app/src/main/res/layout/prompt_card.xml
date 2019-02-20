@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content" app:contentPadding="0dp"
-                                                   android:elevation="1dp"
-                                                   app:cardElevation="1dp"
-                                                   android:layout_marginTop="10dp" android:layout_marginBottom="10dp">
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" app:contentPadding="0dp"
+        android:elevation="1dp"
+        app:cardElevation="1dp"
+        android:layout_marginTop="10dp" android:layout_marginBottom="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="wrap_content">
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <TextView
                 android:text="TextView"
-                android:background="@drawable/rounded_corner"
+                android:background="#fefefe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/prompt" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textSize="18sp" android:textColor="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent" android:padding="15dp"
-        />
+                android:textSize="18sp" android:textColor="#888"
+                app:layout_constraintEnd_toEndOf="parent" android:padding="15dp"/>
 
         <EditText
                 android:layout_width="0dp"
                 android:layout_height="94dp"
                 android:inputType="textMultiLine"
+                android:enabled="false"
                 android:id="@+id/answer"
                 android:background="@null"
                 app:layout_constraintTop_toBottomOf="@+id/prompt" app:layout_constraintStart_toStartOf="parent"

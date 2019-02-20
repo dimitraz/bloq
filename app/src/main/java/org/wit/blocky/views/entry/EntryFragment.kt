@@ -1,9 +1,7 @@
 package org.wit.blocky.views.entry
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -21,6 +19,7 @@ class EntryFragment : Fragment() {
 
     private lateinit var viewModel: EntryViewModel
     private lateinit var app: MainApp
+    private var edit: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +45,35 @@ class EntryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         app = activity!!.application as MainApp
 
+        activity!!.invalidateOptionsMenu()
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = PromptAdapter(app.template)
+        recyclerView.adapter = PromptAdapter(app.template, false)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.item_edit).isVisible = !edit
+        menu.findItem(R.id.item_save).isVisible = edit
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_edit -> {
+                edit = true
+                showPrompts()
+            }
+            R.id.item_save -> {
+                edit = false
+                showPrompts()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showPrompts() {
+        recyclerView.adapter = PromptAdapter(app.template, edit)
+        activity?.invalidateOptionsMenu()
     }
 
     companion object {

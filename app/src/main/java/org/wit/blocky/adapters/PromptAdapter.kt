@@ -8,7 +8,8 @@ import kotlinx.android.synthetic.main.prompt_card.view.*
 import org.wit.blocky.R
 
 class PromptAdapter(
-    private val prompts: List<String>
+    private val prompts: List<String>,
+    private val edit: Boolean
 ) :
     RecyclerView.Adapter<PromptAdapter.MainHolder>() {
     
@@ -21,6 +22,11 @@ class PromptAdapter(
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val prompt = prompts[holder.adapterPosition]
         holder.itemView.prompt.text = prompt
+        holder.itemView.answer.setText("Hello world how are you!")
+
+        if (edit) {
+            holder.itemView.answer.isEnabled = true
+        }
     }
 
     class MainHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
