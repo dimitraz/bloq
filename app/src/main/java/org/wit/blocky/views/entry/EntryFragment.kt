@@ -1,15 +1,18 @@
 package org.wit.blocky.views.entry
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.entry_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
 import org.wit.blocky.databinding.EntryFragmentBinding
+import org.wit.blocky.helpers.CalendarDate
 import org.wit.blocky.helpers.CalendarHelpers
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.JournalEntry
@@ -28,12 +31,13 @@ class EntryFragment : Fragment() {
         setHasOptionsMenu(true)
 
         val bundle = arguments
-        val entry = bundle!!.getSerializable("entry") as JournalEntry
+        Log.i("BLOQ", "$bundle")
+        val date = bundle!!.getSerializable("date") as CalendarDate
         val binding: EntryFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.entry_fragment, container, false)
 
         viewModel = ViewModelProviders.of(
-            this, EntryViewModelFactory(entry)
+            this, EntryViewModelFactory(activity!!.application, date.day)
         ).get(EntryViewModel::class.java)
         binding.viewModel = viewModel
         binding.helpers = CalendarHelpers()
@@ -77,9 +81,9 @@ class EntryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(entry: JournalEntry) = EntryFragment().apply {
+        fun newInstance(date: CalendarDate) = EntryFragment().apply {
             arguments = Bundle().apply {
-                putSerializable("entry", entry)
+                putSerializable("date", date)
             }
         }
     }

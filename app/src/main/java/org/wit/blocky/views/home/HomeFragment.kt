@@ -110,7 +110,7 @@ class HomeFragment : Fragment(), EntryListener {
     override fun onEntryClick(position: Int, entry: JournalEntry) {
         val bundle = bundleOf(
             "position" to position,
-            "entry" to entry
+            "date" to entry.date
         )
         Navigation.findNavController(view!!).navigate(R.id.to_entry_pager, bundle)
     }
