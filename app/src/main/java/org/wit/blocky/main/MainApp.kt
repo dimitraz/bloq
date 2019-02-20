@@ -1,7 +1,7 @@
 package org.wit.blocky.main
 
 import android.app.Application
-import org.wit.blocky.models.FirebaseStore
+import org.wit.blocky.models.store.FirebaseStore
 
 
 class MainApp : Application() {

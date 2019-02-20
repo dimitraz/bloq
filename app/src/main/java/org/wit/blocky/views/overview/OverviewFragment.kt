@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.overview_fragment.*
 import org.wit.blocky.R
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.CalendarDate
 
 class OverviewFragment : Fragment() {
 
@@ -33,10 +33,9 @@ class OverviewFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(OverviewViewModel::class.java)
 
         calendarView.state().edit().setMaximumDate(CalendarDay.today()).commit()
-        calendarView.setOnDateChangedListener { widget, date, selected ->
-            val entry = JournalEntry(title = "Hello", date = date)
+        calendarView.setOnDateChangedListener { _, date, _ ->
             val bundle = bundleOf(
-                "entry" to entry
+                "date" to CalendarDate(date)
             )
             Navigation.findNavController(view!!).navigate(R.id.to_entry_fragment, bundle)
         }

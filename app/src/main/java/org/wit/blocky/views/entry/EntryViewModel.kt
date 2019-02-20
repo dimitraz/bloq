@@ -3,11 +3,11 @@ package org.wit.blocky.views.entry
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.wit.blocky.main.MainApp
+import org.wit.blocky.models.CalendarDate
 import org.wit.blocky.models.JournalEntry
 
-class EntryViewModel(application: Application, val date: CalendarDay) : ViewModel() {
+class EntryViewModel(application: Application, val date: CalendarDate) : ViewModel() {
     var entry: JournalEntry
     var app = application as MainApp
 
@@ -20,7 +20,7 @@ class EntryViewModel(application: Application, val date: CalendarDay) : ViewMode
     }
 }
 
-class EntryViewModelFactory(private val application: Application, private val date: CalendarDay) :
+class EntryViewModelFactory(private val application: Application, private val date: CalendarDate) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return EntryViewModel(application, date) as T

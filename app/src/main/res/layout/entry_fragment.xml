@@ -4,7 +4,6 @@
         android:background="@color/white">
     <data>
         <variable name="viewModel" type="org.wit.blocky.views.entry.EntryViewModel"/>
-        <variable name="helpers" type="org.wit.blocky.helpers.CalendarHelpers"/>
     </data>
 
     <LinearLayout
@@ -18,7 +17,7 @@
                 tools:context=".views.entry.EntryFragment">
 
             <TextView
-                    android:text="@{helpers.dateToString(viewModel.entry.date)}"
+                    android:text="@{viewModel.entry.date.toString()}"
                     android:layout_width="289dp"
                     android:layout_height="0dp"
                     app:layout_constraintTop_toTopOf="parent"

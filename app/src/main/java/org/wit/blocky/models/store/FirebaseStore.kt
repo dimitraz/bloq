@@ -1,9 +1,10 @@
-package org.wit.blocky.models
+package org.wit.blocky.models.store
 
 import android.content.Context
 import android.util.Log
 import com.google.firebase.database.DatabaseReference
-import com.prolificinteractive.materialcalendarview.CalendarDay
+import org.wit.blocky.models.CalendarDate
+import org.wit.blocky.models.JournalEntry
 
 class FirebaseStore(val context: Context) : JournalStore {
 
@@ -14,8 +15,8 @@ class FirebaseStore(val context: Context) : JournalStore {
         return entries
     }
 
-    override fun findByDate(date: CalendarDay): JournalEntry? {
-        return entries.find { p -> p.date == date }
+    override fun findByDate(date: CalendarDate): JournalEntry? {
+        return entries.find { p -> p.date.date == date.date }
     }
 
     override fun create(entry: JournalEntry) {

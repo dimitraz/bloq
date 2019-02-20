@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.home_card.view.*
 import org.wit.blocky.R
-import org.wit.blocky.helpers.CalendarHelpers
 import org.wit.blocky.models.JournalEntry
 import org.wit.blocky.views.home.HomeViewModel
 
@@ -88,7 +87,7 @@ class HomeAdapter(
     ) :
         RecyclerView.ViewHolder(itemView) {
         fun bind(entry: JournalEntry, listener: EntryListener) {
-            itemView.entry_date.text = CalendarHelpers().dateToString(entry.date!!)
+            itemView.entry_date.text = entry.date.toString()
             itemView.entry_category.text = entry.category
             itemView.entry_favourite.isChecked = entry.bookmarked
             itemView.setOnClickListener {

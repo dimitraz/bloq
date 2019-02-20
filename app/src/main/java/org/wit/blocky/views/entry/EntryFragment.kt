@@ -7,15 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.entry_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
 import org.wit.blocky.databinding.EntryFragmentBinding
-import org.wit.blocky.helpers.CalendarDate
-import org.wit.blocky.helpers.CalendarHelpers
 import org.wit.blocky.main.MainApp
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.CalendarDate
 
 
 class EntryFragment : Fragment() {
@@ -37,10 +34,9 @@ class EntryFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.entry_fragment, container, false)
 
         viewModel = ViewModelProviders.of(
-            this, EntryViewModelFactory(activity!!.application, date.day)
+            this, EntryViewModelFactory(activity!!.application, date)
         ).get(EntryViewModel::class.java)
         binding.viewModel = viewModel
-        binding.helpers = CalendarHelpers()
 
         return binding.root
     }
