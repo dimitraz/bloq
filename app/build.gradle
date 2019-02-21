@@ -41,7 +41,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
-    implementation 'com.github.prolificinteractive:material-calendarview:1.4.3'
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     implementation 'com.applandeo:material-calendar-view:1.5.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
 
