@@ -19,6 +19,9 @@ class EntryViewModel(application: Application, val date: CalendarDate) : ViewMod
             entry = app.entries.findByDate(date)!!
         } else {
             entry = JournalEntry(date = date)
+            app.template.forEach {
+                entry.prompts[it] = ""
+            }
             app.entries.create(entry)
         }
     }

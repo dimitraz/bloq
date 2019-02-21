@@ -1,6 +1,5 @@
 package org.wit.blocky
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-        menu?.findItem(R.id.item_edit)?.isVisible = false
         return true
     }
 

@@ -2,14 +2,16 @@ package org.wit.blocky.views.entry
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
-import com.bumptech.glide.request.RequestOptions.circleCropTransform
 import kotlinx.android.synthetic.main.entry_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
@@ -50,32 +52,24 @@ class EntryFragment : Fragment() {
         // Load list of prompts
         activity!!.invalidateOptionsMenu()
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = PromptAdapter(app.template, false)
+        recyclerView.adapter = PromptAdapter(app.template, viewModel, false)
 
         // Show image
         if (viewModel.entry.image.isNotEmpty()) {
             showImage()
+        } else {
+            entry_image.visibility = View.GONE
         }
+
         // Select entry image
         choose_image.setOnClickListener {
             viewModel.selectImage(this)
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        menu.findItem(R.id.item_edit).isVisible = !edit
-        menu.findItem(R.id.item_save).isVisible = edit
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_edit -> {
-                edit = true
-                showPrompts()
-            }
             R.id.item_save -> {
-                edit = false
                 showPrompts()
                 viewModel.saveEntry()
             }
@@ -93,11 +87,12 @@ class EntryFragment : Fragment() {
     }
 
     private fun showPrompts() {
-        recyclerView.adapter = PromptAdapter(app.template, edit)
+        recyclerView.adapter = PromptAdapter(app.template, viewModel, edit)
         activity?.invalidateOptionsMenu()
     }
 
     private fun showImage() {
+        entry_image.visibility = View.VISIBLE
         Glide
             .with(this)
             .load(viewModel.entry.image)

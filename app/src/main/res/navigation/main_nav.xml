@@ -49,7 +49,9 @@
 
     <!-- Entry fragment-->
     <fragment android:id="@+id/destination_entry" android:name="org.wit.blocky.views.entry.EntryFragment"
-              android:label=" "/>
+              android:label=" ">
+        <action android:id="@+id/entry_to_home" app:destination="@id/destination_home"/>
+    </fragment>
 
     <!-- Entry Pager fragment-->
     <fragment android:id="@+id/destination_entry_pager" android:name="org.wit.blocky.views.entryPager.EntryPagerFragment"

@@ -22,11 +22,9 @@
                 android:textSize="18sp" android:textColor="#888"
                 app:layout_constraintEnd_toEndOf="parent" android:padding="15dp"/>
 
-        <EditText
+        <TextView
                 android:layout_width="0dp"
                 android:layout_height="94dp"
-                android:inputType="textMultiLine"
-                android:enabled="false"
                 android:id="@+id/answer"
                 android:background="@null"
                 app:layout_constraintTop_toBottomOf="@+id/prompt" app:layout_constraintStart_toStartOf="parent"

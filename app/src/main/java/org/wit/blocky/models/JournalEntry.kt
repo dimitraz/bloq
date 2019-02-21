@@ -7,7 +7,7 @@ data class JournalEntry(
     var title: String = "",
     var bookmarked: Boolean = false,
     var date: CalendarDate = CalendarDate(),
-    var prompts: HashMap<String, String>? = null,
+    var prompts: MutableMap<String, String> = mutableMapOf(),
     var notes: String? = "",
     var image: String = "",
     var category: String = "Personal"
