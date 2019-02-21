@@ -95,10 +95,9 @@ class HomeAdapter(
             }
             if (entry.image.isNotEmpty()) {
                 itemView.imageView.visibility = View.VISIBLE
-
                 Glide
                     .with(itemView.context)
-                    .load(R.drawable.image)
+                    .load(entry.image)
                     .into(itemView.imageView)
             } else {
                 itemView.imageView.visibility = View.GONE
