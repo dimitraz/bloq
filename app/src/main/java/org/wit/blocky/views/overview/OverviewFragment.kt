@@ -35,7 +35,7 @@ class OverviewFragment : Fragment() {
         calendarView.state().edit().setMaximumDate(CalendarDay.today()).commit()
         calendarView.setOnDateChangedListener { _, date, _ ->
             val bundle = bundleOf(
-                "date" to CalendarDate(date)
+                "date" to CalendarDate(date.day, date.month, date.year)
             )
             Navigation.findNavController(view!!).navigate(R.id.to_entry_fragment, bundle)
         }
