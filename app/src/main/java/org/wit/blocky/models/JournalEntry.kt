@@ -10,5 +10,5 @@ data class JournalEntry(
     var prompts: HashMap<String, String>? = null,
     var notes: String? = "",
     var image: String = "",
-    var category: String = ""
+    var category: String = "Personal"
 ) : Serializable

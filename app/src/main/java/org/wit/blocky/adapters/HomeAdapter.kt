@@ -88,7 +88,7 @@ class HomeAdapter(
         RecyclerView.ViewHolder(itemView) {
         fun bind(entry: JournalEntry, listener: EntryListener) {
             itemView.entry_date.text = entry.date.toString()
-            itemView.entry_category.text = entry.category
+            itemView.entry_category.setText(entry.category)
             itemView.entry_favourite.isChecked = entry.bookmarked
             itemView.setOnClickListener {
                 listener.onEntryClick(entries.indexOf(entry), entry)
