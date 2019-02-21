@@ -2,14 +2,14 @@ package org.wit.blocky.views.entry
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions.*
+import com.bumptech.glide.request.RequestOptions.centerCropTransform
+import com.bumptech.glide.request.RequestOptions.circleCropTransform
 import kotlinx.android.synthetic.main.entry_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
@@ -47,10 +47,15 @@ class EntryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         app = activity!!.application as MainApp
 
+        // Load list of prompts
         activity!!.invalidateOptionsMenu()
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = PromptAdapter(app.template, false)
 
+        // Show image
+        if (viewModel.entry.image.isNotEmpty()) {
+            showImage()
+        }
         // Select entry image
         choose_image.setOnClickListener {
             viewModel.selectImage(this)
@@ -83,17 +88,21 @@ class EntryFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
             viewModel.entry.image = data.data.toString()
-            Glide
-                .with(this)
-                .load(data.data.toString())
-                .apply(centerCropTransform())
-                .into(entry_image)
+            showImage()
         }
     }
 
     private fun showPrompts() {
         recyclerView.adapter = PromptAdapter(app.template, edit)
         activity?.invalidateOptionsMenu()
+    }
+
+    private fun showImage() {
+        Glide
+            .with(this)
+            .load(viewModel.entry.image)
+            .apply(centerCropTransform())
+            .into(entry_image)
     }
 
     companion object {
