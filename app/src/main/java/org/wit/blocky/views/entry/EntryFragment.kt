@@ -1,5 +1,6 @@
 package org.wit.blocky.views.entry
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -7,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.*
 import kotlinx.android.synthetic.main.entry_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
@@ -47,6 +50,11 @@ class EntryFragment : Fragment() {
         activity!!.invalidateOptionsMenu()
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = PromptAdapter(app.template, false)
+
+        // Select entry image
+        choose_image.setOnClickListener {
+            viewModel.selectImage(this)
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -69,6 +77,18 @@ class EntryFragment : Fragment() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            viewModel.entry.image = data.data.toString()
+            Glide
+                .with(this)
+                .load(data.data.toString())
+                .apply(centerCropTransform())
+                .into(entry_image)
+        }
     }
 
     private fun showPrompts() {
