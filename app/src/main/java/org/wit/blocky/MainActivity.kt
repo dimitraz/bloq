@@ -20,9 +20,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         app = application as MainApp
-        app.entries.fetchEntries {
-            Log.i("Bloq", "Entries done")
-        }
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setupActionBarWithNavController(this, navController)

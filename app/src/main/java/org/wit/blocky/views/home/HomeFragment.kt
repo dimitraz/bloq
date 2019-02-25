@@ -1,6 +1,7 @@
 package org.wit.blocky.views.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -33,6 +35,8 @@ class HomeFragment : Fragment(), EntryListener {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var app: MainApp
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,19 +44,27 @@ class HomeFragment : Fragment(), EntryListener {
     ): View? {
         val binding: HomeFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        binding.viewModel = viewModel
+
+        app = activity!!.application as MainApp
+
+        // Fetch entries from firebase
+        app.entries.fetchEntries {
+            // Load view model
+            viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+            binding.viewModel = viewModel
+
+            // Load recycler view
+            adapter = HomeAdapter(viewModel, this)
+            recyclerView = binding.root.findViewById(R.id.recyclerView)
+            recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
+            recyclerView.adapter = HomeAdapter(viewModel, this)
+        }
 
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        app = activity!!.application as MainApp
-
-        val adapter = HomeAdapter(viewModel, this)
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
-        recyclerView.adapter = adapter
 
         // Collapse or expand the filter view
         button.setOnClickListener {

@@ -18,16 +18,16 @@ class HomeAdapter(
 ) :
     RecyclerView.Adapter<HomeAdapter.MainHolder>(), Filterable {
 
-    val entries = viewModel.entries
+//    val entries = viewModel.entries
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MainHolder {
-        return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.home_card, parent, false), entries)
+        return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.home_card, parent, false), viewModel.entries)
     }
 
-    override fun getItemCount(): Int = entries.size
+    override fun getItemCount(): Int = viewModel.entries.size
 
     override fun onBindViewHolder(holder: HomeAdapter.MainHolder, position: Int) {
-        val entry = entries[holder.adapterPosition]
+        val entry = viewModel.entries[holder.adapterPosition]
         holder.bind(entry, listener)
     }
 
