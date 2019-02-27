@@ -25,6 +25,7 @@
         <action android:id="@+id/action_destination_home_to_destination_entry" app:destination="@id/destination_entry"/>
         <action android:id="@+id/to_entry_pager"
                 app:destination="@id/destination_entry_pager"/>
+        <action android:id="@+id/action_destination_home_to_entryActivity" app:destination="@id/entryActivity"/>
     </fragment>
 
     <!-- Overview fragment -->
@@ -56,5 +57,7 @@
     <!-- Entry Pager fragment-->
     <fragment android:id="@+id/destination_entry_pager" android:name="org.wit.blocky.views.entryPager.EntryPagerFragment"
               android:label=" "/>
+    <activity android:id="@+id/entryActivity" android:name="org.wit.blocky.EntryActivity" android:label="activity_entry"
+              tools:layout="@layout/activity_entry"/>
 
 </navigation>

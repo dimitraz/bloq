@@ -3,12 +3,13 @@ package org.wit.blocky.views.entry
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
@@ -24,6 +25,7 @@ class EntryFragment : Fragment() {
 
     private lateinit var viewModel: EntryViewModel
     private lateinit var app: MainApp
+    private lateinit var nav: NavController
     private var edit: Boolean = false
 
     override fun onCreateView(
@@ -49,8 +51,10 @@ class EntryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         app = activity!!.application as MainApp
 
+        // Navigation controller
+        nav = Navigation.findNavController(view!!)
+
         // Load list of prompts
-        activity!!.invalidateOptionsMenu()
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = PromptAdapter(app.template, viewModel, false)
 
@@ -65,17 +69,12 @@ class EntryFragment : Fragment() {
         choose_image.setOnClickListener {
             viewModel.selectImage(this)
         }
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_save -> {
-                showPrompts()
-                viewModel.saveEntry()
-            }
+        // Save item
+        save_item.setOnClickListener {
+            viewModel.saveEntry()
+            Navigation.findNavController(view!!).navigate(R.id.destination_home)
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,11 +83,6 @@ class EntryFragment : Fragment() {
             viewModel.entry.image = data.data.toString()
             showImage()
         }
-    }
-
-    private fun showPrompts() {
-        recyclerView.adapter = PromptAdapter(app.template, viewModel, edit)
-        activity?.invalidateOptionsMenu()
     }
 
     private fun showImage() {
