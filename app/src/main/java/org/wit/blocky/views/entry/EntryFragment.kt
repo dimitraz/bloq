@@ -59,7 +59,7 @@ class EntryFragment : Fragment() {
 
         // Load list of prompts
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = PromptAdapter(app.template, viewModel, false)
+        recyclerView.adapter = PromptAdapter(app.template, viewModel)
 
         // Show image
         if (viewModel.entry.image.isNotEmpty()) {
@@ -71,12 +71,6 @@ class EntryFragment : Fragment() {
         // Select entry image
         choose_image.setOnClickListener {
             viewModel.selectImage(this)
-        }
-
-        // Save item
-        save_item.setOnClickListener {
-            viewModel.saveEntry()
-            nav.navigate(R.id.destination_home)
         }
     }
 

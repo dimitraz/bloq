@@ -22,7 +22,7 @@
                 android:textSize="18sp" android:textColor="#888"
                 app:layout_constraintEnd_toEndOf="parent" android:padding="15dp"/>
 
-        <TextView
+        <EditText
                 android:layout_width="0dp"
                 android:layout_height="94dp"
                 android:id="@+id/answer"
