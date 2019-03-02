@@ -19,10 +19,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:parentActivityName=".MainActivity"
-                android:name=".EntryActivity">
-        </activity>
     </application>
 
 </manifest>

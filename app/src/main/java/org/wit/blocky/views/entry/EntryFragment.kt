@@ -2,9 +2,7 @@ package org.wit.blocky.views.entry
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -73,8 +71,23 @@ class EntryFragment : Fragment() {
         // Save item
         save_item.setOnClickListener {
             viewModel.saveEntry()
-            Navigation.findNavController(view!!).navigate(R.id.destination_home)
+            nav.navigate(R.id.destination_home)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.item_save -> {
+                viewModel.saveEntry()
+                nav.navigate(R.id.destination_home)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.entry_menu, menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -2,9 +2,7 @@ package org.wit.blocky.views.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.core.os.bundleOf
@@ -132,7 +130,7 @@ class HomeFragment : Fragment(), EntryListener {
             "position" to position,
             "date" to entry.date
         )
-        Navigation.findNavController(view!!).navigate(R.id.action_destination_home_to_entryActivity, bundle)
+        Navigation.findNavController(view!!).navigate(R.id.to_entry_pager, bundle)
     }
 
     private fun showProgress() {
