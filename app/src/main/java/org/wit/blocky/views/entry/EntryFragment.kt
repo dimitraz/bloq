@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.entry_fragment.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
@@ -25,7 +26,6 @@ class EntryFragment : Fragment() {
     private lateinit var viewModel: EntryViewModel
     private lateinit var app: MainApp
     private lateinit var nav: NavController
-    private var edit: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,12 @@ class EntryFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
 
+        var date = CalendarDate(CalendarDay.today().day, CalendarDay.today().month, CalendarDay.today().year)
         val bundle = arguments
-        val date = bundle!!.getSerializable("date") as CalendarDate
+        if (bundle != null) {
+            date = bundle.getSerializable("date") as CalendarDate
+        }
+
         val binding: EntryFragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.entry_fragment, container, false)
 

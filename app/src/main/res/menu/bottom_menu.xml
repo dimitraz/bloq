@@ -7,13 +7,13 @@
         android:title="Home"/>
 
     <item
+            android:id="@+id/destination_entry"
+            android:icon="@drawable/outline_radio_button_checked_24"
+            android:title="Today"/>
+
+    <item
         android:id="@+id/destination_overview"
         android:icon="@drawable/outline_radio_button_checked_24"
         android:title="Overview"/>
-
-    <item
-        android:id="@+id/destination_profile"
-        android:icon="@drawable/outline_favorite_border_24"
-        android:title="Profile"/>
 
 </menu>
