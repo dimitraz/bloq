@@ -44,12 +44,14 @@ class FirebaseStore(val context: Context) : JournalStore {
     }
 
     override fun update(entry: JournalEntry) {
-        db.child("entries").child(entry.fbId).setValue(entry)
         Log.d("Bloq", "Updating entry: ${entry.fbId} $entry")
+        db.child("entries").child(entry.fbId).setValue(entry)
     }
 
     override fun delete(entry: JournalEntry) {
         Log.d("Bloq", "Deleting entry: ${entry.fbId}")
+        db.child("entries").child(entry.fbId).removeValue()
+        entries.remove(entry)
     }
 
     fun fetchEntries(entriesReady: () -> Unit) {

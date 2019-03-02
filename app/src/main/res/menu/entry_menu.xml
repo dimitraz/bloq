@@ -11,7 +11,13 @@
     <item
             android:id="@+id/item_edit"
             android:title="Save"
-            android:icon="@drawable/outline_arrow_drop_down_circle_24"
+            android:icon="@drawable/outline_details_24"
+            app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/item_delete"
+            android:title="Save"
+            android:icon="@drawable/outline_close_24"
             app:showAsAction="always"/>
 
     <item

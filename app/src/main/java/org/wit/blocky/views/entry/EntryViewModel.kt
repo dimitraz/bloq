@@ -30,6 +30,10 @@ class EntryViewModel(application: Application, val date: CalendarDate) : ViewMod
         app.entries.update(entry)
     }
 
+    fun deleteEntry() {
+        app.entries.delete(entry)
+    }
+
     fun selectImage(fragment: EntryFragment) {
         fragment.startActivityForResult(imageIntent(), IMAGE_REQUEST)
     }

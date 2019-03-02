@@ -3,6 +3,7 @@ package org.wit.blocky.views.entry
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -81,12 +82,16 @@ class EntryFragment : Fragment() {
                 viewModel.saveEntry()
                 nav.navigate(R.id.destination_home)
             }
+            R.id.item_delete -> {
+                showDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
+        menu?.clear()
         inflater?.inflate(R.menu.entry_menu, menu)
     }
 
@@ -95,6 +100,22 @@ class EntryFragment : Fragment() {
         if (data != null) {
             viewModel.entry.image = data.data.toString()
             showImage()
+        }
+    }
+
+    private fun showDialog() {
+        val alertDialog = AlertDialog.Builder(context!!)
+            .setTitle("Delete entry")
+            .setMessage("Are you sure you want to delete this entry?")
+            .setPositiveButton(android.R.string.ok, null)
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+
+        val ok = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        ok.setOnClickListener {
+            viewModel.deleteEntry()
+            nav.navigate(R.id.destination_home)
+            alertDialog.dismiss()
         }
     }
 
