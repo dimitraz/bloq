@@ -6,7 +6,7 @@ A prompt journal app for Android in Kotlin
 - Search and filter by categories/tags 
 - Integration with [Material Calendar View](https://github.com/prolificinteractive/material-calendarview)
 - Entry fragment pager to swipe through entries
-- Image picker
+- Image picker, load images with [Glide](https://github.com/bumptech/glide)
 
 ### Model & Persistence
 - 3 Models: 
@@ -17,7 +17,9 @@ A prompt journal app for Android in Kotlin
 
 ### UX
 - Bottom navigation 
-- Use of UI elements like progress bar, overflow menu, search view, material design chips
+- Recycler view with card view for home page and entry prompts list to lazy load cards
+- Use of UI elements like progress bar, overflow menu, search view, material design chips, custom checkboxes, alert dialog
+- Load images with [Glide](https://github.com/bumptech/glide)
 - Adherence to Material Design [Guidelines](https://material.io/design/guidelines-overview/#addition)
 - Up navigation support
 
