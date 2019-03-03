@@ -1,4 +1,7 @@
 # Bloq
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+[![CircleCI](https://circleci.com/gh/dimitraz/bloq.svg?style=svg)](https://circleci.com/gh/dimitraz/bloq)
+
 A prompt journal app for Android in Kotlin
 
 ### Functionality 
@@ -29,3 +32,6 @@ A prompt journal app for Android in Kotlin
 - Model View [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) pattern
 - Use of fragments
 - Use of [KTX](https://developer.android.com/kotlin/ktx) and [AndroidX](https://developer.android.com/jetpack/androidx) extensions
+
+## Extra notes
+Built with CircleCI and [ktlint](https://github.com/shyiko/ktlint)
