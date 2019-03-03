@@ -19,5 +19,4 @@ class PagerAdapter(fragmentManager: FragmentManager, private val entries: Mutabl
     }
 
     override fun getCount(): Int = entries.size
-
 }

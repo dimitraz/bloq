@@ -2,12 +2,15 @@ package org.wit.blocky.models.store
 
 import android.content.Context
 import android.util.Log
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.threeten.bp.LocalDate
 import org.wit.blocky.models.CalendarDate
 import org.wit.blocky.models.JournalEntry
-
 
 class FirebaseStore(val context: Context) : JournalStore {
 
@@ -69,5 +72,4 @@ class FirebaseStore(val context: Context) : JournalStore {
         entries.clear()
         db.child("entries").addListenerForSingleValueEvent(valueEventListener)
     }
-
 }

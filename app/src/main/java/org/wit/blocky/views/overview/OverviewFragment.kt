@@ -22,7 +22,8 @@ class OverviewFragment : Fragment() {
     private lateinit var viewModel: OverviewViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.overview_fragment, container, false)
@@ -45,5 +46,4 @@ class OverviewFragment : Fragment() {
 //            )
 //        }
     }
-
 }

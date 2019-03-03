@@ -54,4 +54,3 @@ class PromptAdapter(
         override fun afterTextChanged(editable: Editable) {}
     }
 }
-

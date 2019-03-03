@@ -8,7 +8,6 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import org.wit.blocky.R
 
-
 class EventDecorator(private val context: Context, private val color: Int, dates: Collection<CalendarDay>) : DayViewDecorator {
     private val dates: HashSet<CalendarDay> = HashSet(dates)
 

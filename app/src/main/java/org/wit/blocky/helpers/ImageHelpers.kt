@@ -10,7 +10,6 @@ import android.provider.MediaStore
 import org.wit.blocky.R
 import java.io.IOException
 
-
 fun imageIntent(): Intent {
     val intent = Intent()
     intent.type = "image/*"

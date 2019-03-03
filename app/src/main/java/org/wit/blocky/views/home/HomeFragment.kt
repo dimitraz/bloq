@@ -2,7 +2,9 @@ package org.wit.blocky.views.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.core.os.bundleOf
@@ -23,7 +25,6 @@ import org.wit.blocky.databinding.HomeFragmentBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.JournalEntry
 
-
 class HomeFragment : Fragment(), EntryListener {
 
     companion object {
@@ -37,7 +38,8 @@ class HomeFragment : Fragment(), EntryListener {
     private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding: HomeFragmentBinding =
@@ -121,7 +123,6 @@ class HomeFragment : Fragment(), EntryListener {
                 return false
             }
         })
-
     }
 
     // Add listener for when an entry card is pressed
@@ -140,5 +141,4 @@ class HomeFragment : Fragment(), EntryListener {
     private fun hideProgress() {
         progressBar.visibility = View.GONE
     }
-
 }

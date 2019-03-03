@@ -104,7 +104,6 @@ class HomeAdapter(
             }
         }
     }
-
 }
 
 interface EntryListener {

@@ -2,7 +2,12 @@ package org.wit.blocky.views.entry
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +25,6 @@ import org.wit.blocky.databinding.EntryFragmentBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.CalendarDate
 
-
 class EntryFragment : Fragment() {
 
     private lateinit var viewModel: EntryViewModel
@@ -28,7 +32,8 @@ class EntryFragment : Fragment() {
     private lateinit var nav: NavController
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
@@ -133,5 +138,4 @@ class EntryFragment : Fragment() {
             }
         }
     }
-
 }

@@ -16,7 +16,8 @@ class EntryPagerFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.pager_fragment, container, false)
@@ -36,5 +37,4 @@ class EntryPagerFragment : Fragment() {
             viewPager.setCurrentItem(position, false)
         }
     }
-    
 }

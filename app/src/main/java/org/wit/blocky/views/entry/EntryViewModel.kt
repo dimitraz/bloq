@@ -37,7 +37,6 @@ class EntryViewModel(application: Application, val date: CalendarDate) : ViewMod
     fun selectImage(fragment: EntryFragment) {
         fragment.startActivityForResult(imageIntent(), IMAGE_REQUEST)
     }
-
 }
 
 class EntryViewModelFactory(private val application: Application, private val date: CalendarDate) :

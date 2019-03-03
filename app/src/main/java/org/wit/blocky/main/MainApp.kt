@@ -3,7 +3,6 @@ package org.wit.blocky.main
 import android.app.Application
 import org.wit.blocky.models.store.FirebaseStore
 
-
 class MainApp : Application() {
     // Create map of entries, load entry
     // by searching date key in map
