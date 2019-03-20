@@ -1,7 +1,7 @@
-package org.wit.blocky.views.overview
+package org.wit.blocky.views.profile
 
 import androidx.lifecycle.ViewModel
 
-class OverviewViewModel : ViewModel() {
+class ProfileViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
