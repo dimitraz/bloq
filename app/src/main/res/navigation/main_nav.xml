@@ -17,12 +17,10 @@
             android:name="org.wit.blocky.views.home.HomeFragment"
             android:label="@string/app_name"
             tools:layout="@layout/home_fragment">
-        <action
-                android:id="@+id/action_homeFragment_to_destination_overview"
-                app:destination="@id/destination_overview"/>
-        <action android:id="@+id/action_destination_home_to_destination_entry" app:destination="@id/destination_entry"/>
-        <action android:id="@+id/to_entry_pager"
-                app:destination="@id/destination_entry_pager"/>
+        <action android:id="@+id/to_destination_overview" app:destination="@id/destination_overview"/>
+        <action android:id="@+id/to_destination_entry" app:destination="@id/destination_entry"/>
+        <action android:id="@+id/to_destination_entry_pager" app:destination="@id/destination_entry_pager"/>
+        <action android:id="@+id/to_destination_profile" app:destination="@id/destination_profile"/>
     </fragment>
 
     <!-- Overview fragment -->
@@ -32,20 +30,24 @@
             android:label=" "
             tools:layout="@layout/overview_fragment">
         <action
-                android:id="@+id/action_destination_overview_to_homeFragment"
+                android:id="@+id/overview_to_home"
                 app:destination="@id/destination_home"/>
-        <action android:id="@+id/to_entry_fragment"
+        <action android:id="@+id/overview_to_entry"
                 app:destination="@id/destination_entry"/>
     </fragment>
 
-    <!-- Entry fragment-->
+    <!-- Entry fragment -->
     <fragment android:id="@+id/destination_entry" android:name="org.wit.blocky.views.entry.EntryFragment"
               android:label=" ">
         <action android:id="@+id/entry_to_home" app:destination="@id/destination_home"/>
     </fragment>
 
-    <!-- Entry Pager fragment-->
+    <!-- Entry Pager fragment -->
     <fragment android:id="@+id/destination_entry_pager" android:name="org.wit.blocky.views.entryPager.EntryPagerFragment"
               android:label=" "/>
+
+    <!-- Profile fragment -->
+    <fragment android:id="@+id/destination_profile" android:name="org.wit.blocky.views.profile.ProfileFragment"
+              android:label=" " tools:layout="@layout/profile_fragment"/>
 
 </navigation>

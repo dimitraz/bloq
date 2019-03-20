@@ -38,7 +38,7 @@ class OverviewFragment : Fragment() {
             val bundle = bundleOf(
                 "date" to CalendarDate(date.day, date.month, date.year)
             )
-            Navigation.findNavController(view!!).navigate(R.id.overview_to_entry, bundle)
+            Navigation.findNavController(view!!).navigate(R.id.to_entry_fragment, bundle)
         }
 //        calendarView.setOnDateChangedListener { _, _, _ ->
 //            calendarView.addDecorator(

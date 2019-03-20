@@ -131,7 +131,7 @@ class HomeFragment : Fragment(), EntryListener {
             "position" to position,
             "date" to entry.date
         )
-        Navigation.findNavController(view!!).navigate(R.id.to_entry_pager, bundle)
+        Navigation.findNavController(view!!).navigate(R.id.to_destination_entry_pager, bundle)
     }
 
     private fun showProgress() {
