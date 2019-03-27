@@ -76,6 +76,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:16.0.7"
     implementation "com.google.firebase:firebase-database:16.1.0"
     implementation "com.google.firebase:firebase-auth:16.2.0"
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     implementation "com.github.prolificinteractive:material-calendarview:2.0.1"
 
