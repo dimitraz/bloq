@@ -1,5 +1,6 @@
-package org.wit.blocky.models
+package org.wit.blocky.models.entry
 
+import org.wit.blocky.models.CalendarDate
 import java.io.Serializable
 
 data class JournalEntry(

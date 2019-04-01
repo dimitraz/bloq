@@ -1,7 +1,7 @@
 package org.wit.blocky.main
 
 import android.app.Application
-import org.wit.blocky.models.store.FirebaseStore
+import org.wit.blocky.models.entry.FirebaseStore
 
 class MainApp : Application() {
     // Create map of entries, load entry

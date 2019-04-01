@@ -1,4 +1,4 @@
-package org.wit.blocky.models.store
+package org.wit.blocky.models.entry
 
 import android.content.Context
 import android.util.Log
@@ -11,7 +11,6 @@ import com.google.firebase.database.ValueEventListener
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.threeten.bp.LocalDate
 import org.wit.blocky.models.CalendarDate
-import org.wit.blocky.models.JournalEntry
 
 class FirebaseStore(val context: Context) : JournalStore {
 

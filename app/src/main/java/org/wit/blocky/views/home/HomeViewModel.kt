@@ -7,7 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import androidx.lifecycle.AndroidViewModel
 import org.wit.blocky.main.MainApp
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.entry.JournalEntry
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var allEntries: List<JournalEntry> = listOf()

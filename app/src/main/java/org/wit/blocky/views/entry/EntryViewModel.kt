@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.wit.blocky.helpers.imageIntent
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.CalendarDate
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.entry.JournalEntry
 
 class EntryViewModel(application: Application, val date: CalendarDate) : ViewModel() {
 

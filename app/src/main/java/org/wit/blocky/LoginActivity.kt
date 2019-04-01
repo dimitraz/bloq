@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
 import org.wit.blocky.main.MainApp
-import org.wit.blocky.models.store.FirebaseStore
+import org.wit.blocky.models.entry.FirebaseStore
 
 class LoginActivity : AppCompatActivity() {
 

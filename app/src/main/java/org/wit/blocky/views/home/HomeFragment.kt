@@ -23,7 +23,7 @@ import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.HomeAdapter
 import org.wit.blocky.databinding.FragmentHomeBinding
 import org.wit.blocky.main.MainApp
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.entry.JournalEntry
 
 class HomeFragment : Fragment(), EntryListener {
 
