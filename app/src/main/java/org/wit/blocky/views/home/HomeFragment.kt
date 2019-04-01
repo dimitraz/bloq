@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.HomeAdapter
-import org.wit.blocky.databinding.HomeFragmentBinding
+import org.wit.blocky.databinding.FragmentHomeBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.JournalEntry
 
@@ -42,7 +42,7 @@ class HomeFragment : Fragment(), EntryListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: HomeFragmentBinding =
+        val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         app = activity!!.application as MainApp

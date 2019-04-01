@@ -21,7 +21,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_entry.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
-import org.wit.blocky.databinding.EntryFragmentBinding
+import org.wit.blocky.databinding.FragmentEntryBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.CalendarDate
 
@@ -44,7 +44,7 @@ class EntryFragment : Fragment() {
             date = bundle.getSerializable("date") as CalendarDate
         }
 
-        val binding: EntryFragmentBinding =
+        val binding: FragmentEntryBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_entry, container, false)
 
         viewModel = ViewModelProviders.of(
