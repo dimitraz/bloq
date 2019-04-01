@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.pager_fragment.*
+import kotlinx.android.synthetic.main.fragment_pager.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PagerAdapter
 import org.wit.blocky.views.home.HomeViewModel
@@ -20,7 +20,7 @@ class EntryPagerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.pager_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_pager, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

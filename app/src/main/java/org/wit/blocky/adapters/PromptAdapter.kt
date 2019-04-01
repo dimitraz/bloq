@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.prompt_card.view.*
+import kotlinx.android.synthetic.main.card_prompt.view.*
 import org.wit.blocky.R
 import org.wit.blocky.views.entry.EntryViewModel
 
@@ -19,7 +19,7 @@ class PromptAdapter(
     val entry = viewModel.entry
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.prompt_card, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.card_prompt, parent, false)
         return MainHolder(v, TextListener())
     }
 

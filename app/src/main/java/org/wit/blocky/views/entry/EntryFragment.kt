@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import kotlinx.android.synthetic.main.entry_fragment.*
+import kotlinx.android.synthetic.main.fragment_entry.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
-import org.wit.blocky.databinding.EntryFragmentBinding
+import org.wit.blocky.databinding.FragmentEntryBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.CalendarDate
 
@@ -44,8 +44,8 @@ class EntryFragment : Fragment() {
             date = bundle.getSerializable("date") as CalendarDate
         }
 
-        val binding: EntryFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.entry_fragment, container, false)
+        val binding: FragmentEntryBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_entry, container, false)
 
         viewModel = ViewModelProviders.of(
             this, EntryViewModelFactory(activity!!.application, date)
@@ -95,7 +95,7 @@ class EntryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         menu?.clear()
-        inflater?.inflate(R.menu.entry_menu, menu)
+        inflater?.inflate(R.menu.menu_entry, menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

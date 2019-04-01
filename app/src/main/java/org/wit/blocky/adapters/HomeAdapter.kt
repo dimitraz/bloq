@@ -7,7 +7,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.home_card.view.*
+import kotlinx.android.synthetic.main.card_home.view.*
 import org.wit.blocky.R
 import org.wit.blocky.models.JournalEntry
 import org.wit.blocky.views.home.HomeViewModel
@@ -18,10 +18,11 @@ class HomeAdapter(
 ) :
     RecyclerView.Adapter<HomeAdapter.MainHolder>(), Filterable {
 
-//    val entries = viewModel.entries
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MainHolder {
-        return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.home_card, parent, false), viewModel.entries)
+        return MainHolder(
+            LayoutInflater.from(parent?.context).inflate(R.layout.card_home, parent, false),
+            viewModel.entries
+        )
     }
 
     override fun getItemCount(): Int = viewModel.entries.size
@@ -70,14 +71,6 @@ class HomeAdapter(
             viewModel.entries.clear()
             viewModel.entries.addAll(results.values as List<JournalEntry>)
             notifyDataSetChanged()
-        }
-    }
-
-    fun filterCategories(item: JournalEntry, filteredList: MutableList<JournalEntry>) {
-        if (viewModel.categories.isNotEmpty() && item.category in viewModel.categories) {
-            filteredList.add(item)
-        } else if (viewModel.categories.isEmpty()) {
-            filteredList.add(item)
         }
     }
 
