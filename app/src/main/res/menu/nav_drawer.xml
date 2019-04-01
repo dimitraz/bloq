@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/destination_home"
+                android:icon="@drawable/outline_grain_24"
+                android:title="Home"/>
+
+        <item
+                android:id="@+id/destination_entry"
+                android:icon="@drawable/outline_radio_button_checked_24"
+                android:title="Today"/>
+
+        <item
+                android:id="@+id/destination_overview"
+                android:icon="@drawable/outline_date_range_24"
+                android:title="Overview"/>
+
+    </group>
+
+</menu>
