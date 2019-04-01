@@ -43,7 +43,8 @@
     </fragment>
 
     <!-- Entry Pager fragment -->
-    <fragment android:id="@+id/destination_entry_pager" android:name="org.wit.blocky.views.entryPager.EntryPagerFragment"
+    <fragment android:id="@+id/destination_entry_pager"
+              android:name="org.wit.blocky.views.entryPager.EntryPagerFragment"
               android:label=" "/>
 
     <!-- Profile fragment -->

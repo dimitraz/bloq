@@ -16,9 +16,9 @@
         android:icon="@drawable/outline_date_range_24"
         android:title="Overview"/>
 
-    <item
-        android:id="@+id/destination_profile"
-        android:icon="@drawable/outline_date_range_24"
-        android:title="Profile"/>
+    <!--<item-->
+        <!--android:id="@+id/destination_profile"-->
+        <!--android:icon="@drawable/outline_date_range_24"-->
+        <!--android:title="Profile"/>-->
 
 </menu>
