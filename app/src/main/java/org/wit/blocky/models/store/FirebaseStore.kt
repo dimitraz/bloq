@@ -2,6 +2,7 @@ package org.wit.blocky.models.store
 
 import android.content.Context
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -16,6 +17,7 @@ class FirebaseStore(val context: Context) : JournalStore {
 
     val entries = ArrayList<JournalEntry>()
     private lateinit var db: DatabaseReference
+    private lateinit var userId: String
 
     override fun findAll(): List<JournalEntry> {
         return entries
@@ -41,19 +43,19 @@ class FirebaseStore(val context: Context) : JournalStore {
         key?.let {
             entry.fbId = key
             entries.add(entry)
-            db.child("entries").child(key).setValue(entry)
+            db.child("users").child(userId).child("entries").child(key).setValue(entry)
         }
         Log.d("Bloq", "Adding entry: ${entry.fbId}")
     }
 
     override fun update(entry: JournalEntry) {
         Log.d("Bloq", "Updating entry: ${entry.fbId} $entry")
-        db.child("entries").child(entry.fbId).setValue(entry)
+        db.child("users").child(userId).child("entries").child(entry.fbId).setValue(entry)
     }
 
     override fun delete(entry: JournalEntry) {
         Log.d("Bloq", "Deleting entry: ${entry.fbId}")
-        db.child("entries").child(entry.fbId).removeValue()
+        db.child("users").child(userId).child("entries").child(entry.fbId).removeValue()
         entries.remove(entry)
     }
 
@@ -68,8 +70,9 @@ class FirebaseStore(val context: Context) : JournalStore {
             }
         }
 
+        userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         entries.clear()
-        db.child("entries").addListenerForSingleValueEvent(valueEventListener)
+        db.child("users").child(userId).child("entries").addListenerForSingleValueEvent(valueEventListener)
     }
 }
