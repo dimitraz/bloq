@@ -1,4 +1,4 @@
-package org.wit.blocky.views.profile
+package org.wit.blocky.views.settings
 
 import android.os.Bundle
 import android.util.Log
@@ -9,26 +9,27 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import org.wit.blocky.R
+import org.wit.blocky.views.settings.SettingsViewModel
 
-class ProfileFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ProfileFragment()
+        fun newInstance() = SettingsFragment()
     }
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var viewModel: SettingsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.settings_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         Log.i("Bloq", "Current user: $currentUser")

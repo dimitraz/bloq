@@ -51,4 +51,8 @@
     <fragment android:id="@+id/destination_profile" android:name="org.wit.blocky.views.profile.ProfileFragment"
               android:label=" " tools:layout="@layout/profile_fragment"/>
 
+    <!-- Settings fragment -->
+    <fragment android:id="@+id/destination_settings" android:name="org.wit.blocky.views.settings.SettingsFragment"
+              android:label=" " tools:layout="@layout/settings_fragment"/>
+
 </navigation>
