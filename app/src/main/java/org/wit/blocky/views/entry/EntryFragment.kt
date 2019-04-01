@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import kotlinx.android.synthetic.main.entry_fragment.*
+import kotlinx.android.synthetic.main.fragment_entry.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
 import org.wit.blocky.databinding.EntryFragmentBinding
@@ -45,7 +45,7 @@ class EntryFragment : Fragment() {
         }
 
         val binding: EntryFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.entry_fragment, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_entry, container, false)
 
         viewModel = ViewModelProviders.of(
             this, EntryViewModelFactory(activity!!.application, date)

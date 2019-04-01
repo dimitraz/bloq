@@ -7,7 +7,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.home_card.view.*
+import kotlinx.android.synthetic.main.card_home.view.*
 import org.wit.blocky.R
 import org.wit.blocky.models.JournalEntry
 import org.wit.blocky.views.home.HomeViewModel
@@ -21,7 +21,7 @@ class HomeAdapter(
 //    val entries = viewModel.entries
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.MainHolder {
-        return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.home_card, parent, false), viewModel.entries)
+        return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_home, parent, false), viewModel.entries)
     }
 
     override fun getItemCount(): Int = viewModel.entries.size

@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.profile_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

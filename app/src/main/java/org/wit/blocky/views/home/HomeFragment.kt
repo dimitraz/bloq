@@ -17,7 +17,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.HomeAdapter
@@ -43,7 +43,7 @@ class HomeFragment : Fragment(), EntryListener {
         savedInstanceState: Bundle?
     ): View? {
         val binding: HomeFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         app = activity!!.application as MainApp
         recyclerView = binding.root.findViewById(R.id.recyclerView)
