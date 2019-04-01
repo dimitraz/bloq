@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class UserModel(
     var fbId: String = "",
+    var authId: String = "",
     var photoUrl: String = "",
     var displayName: String = "",
     var email: String = "",
