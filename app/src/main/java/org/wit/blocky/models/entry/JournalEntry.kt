@@ -7,6 +7,7 @@ data class JournalEntry(
     var fbId: String = "",
     var title: String = "",
     var bookmarked: Boolean = false,
+    var public: Boolean = false,
     var date: CalendarDate = CalendarDate(),
     var prompts: MutableMap<String, String> = mutableMapOf(),
     var notes: String? = "",
