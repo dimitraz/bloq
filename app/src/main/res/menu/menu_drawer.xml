@@ -8,27 +8,29 @@
         <item
                 android:id="@+id/destination_home"
                 android:icon="@drawable/outline_grain_24"
-                android:title="Home"/>
+                android:title="@string/menu_home"/>
 
         <item
                 android:id="@+id/destination_entry"
                 android:icon="@drawable/outline_radio_button_checked_24"
-                android:title="Today"/>
+                android:title="@string/menu_today"/>
 
         <item
                 android:id="@+id/destination_overview"
                 android:icon="@drawable/outline_date_range_24"
-                android:title="Overview"/>
+                android:title="@string/menu_overview"/>
 
     </group>
 
     <group
             android:id="@+id/group_secondary"
             android:checkableBehavior="single">
+
         <item
                 android:id="@+id/destination_settings"
                 android:icon="@drawable/outline_details_24"
-                android:title="Overview"/>
+                android:title="@string/menu_overview"/>
+        
     </group>
 
 </menu>

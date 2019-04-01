@@ -9,8 +9,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Menus -->
+    <string name="menu_home">Home</string>
+    <string name="menu_today">Today</string>
+    <string name="menu_overview">Overview</string>
+    <string name="menu_entry_save">Save</string>
+    <string name="menu_entry_delete">Delete</string>
 
     <!-- Toolbar menu -->
     <string name="toolbar_settings">Settings</string>
