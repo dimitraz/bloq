@@ -107,8 +107,7 @@ class LoginActivity : AppCompatActivity() {
     private fun doLogin(email: String, password: String) {
         showProgress()
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-            getOrCreateUser(auth.currentUser?.uid)
-            doResult(task)
+            doResult(task, auth.currentUser?.uid)
         }
     }
 
@@ -117,8 +116,7 @@ class LoginActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 showToast("Sign up successful")
-                getOrCreateUser(auth.currentUser?.uid)
-                doResult(task)
+                doResult(task, auth.currentUser?.uid)
             } else {
                 showToast("${task.exception?.message}")
             }
@@ -149,8 +147,7 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
-                getOrCreateUser(auth.currentUser?.uid)
-                doResult(task)
+                doResult(task, auth.currentUser?.uid)
             }
     }
 
@@ -179,8 +176,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun doResult(task: Task<AuthResult>) {
+    private fun doResult(task: Task<AuthResult>, authId: String?) {
         if (task.isSuccessful) {
+            getOrCreateUser(authId)
+
             showToast("Login successful")
             fireStore.fetchEntries {
                 hideProgress()
