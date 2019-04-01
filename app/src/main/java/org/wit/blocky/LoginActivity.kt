@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
     private fun doLogin(email: String, password: String) {
         showProgress()
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            getOrCreateUser(auth.currentUser?.uid)
             doResult(task)
         }
     }
@@ -160,12 +161,12 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Log.d(TAG, "No user found, creating user")
 
-                    val googleUser = GoogleSignIn.getLastSignedInAccount(this)
-                    googleUser?.let {
+                    val currentUser = FirebaseAuth.getInstance().currentUser
+                    currentUser?.let {
                         user = UserModel(
-                            photoUrl = googleUser.photoUrl.toString(),
-                            displayName = googleUser.displayName!!,
-                            email = googleUser.email!!,
+                            photoUrl = currentUser.photoUrl.toString(),
+                            displayName = currentUser.displayName,
+                            email = currentUser.email!!,
                             authId = authId
                         )
                         userStore.create(user!!)
