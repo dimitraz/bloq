@@ -117,6 +117,8 @@ class LoginActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 showToast("Sign up successful")
+                getOrCreateUser(auth.currentUser?.uid)
+                doResult(task)
             } else {
                 showToast("${task.exception?.message}")
             }
