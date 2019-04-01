@@ -7,7 +7,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.activity_main.drawer_layout
+import kotlinx.android.synthetic.main.activity_main.navigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         setupNavigation()
     }
-
 
     private fun setupNavigation() {
         val navController = findNavController(R.id.nav_host_fragment)
@@ -46,5 +47,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navigateUp(findNavController(R.id.nav_host_fragment), drawer_layout)
     }
-
 }

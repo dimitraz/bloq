@@ -105,7 +105,6 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             doResult(task)
         }
-
     }
 
     private fun doSignUp(email: String, password: String) {
@@ -145,7 +144,6 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 doResult(task)
             }
-
     }
 
     private fun doResult(task: Task<AuthResult>) {

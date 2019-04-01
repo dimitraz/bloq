@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+            android:id="@+id/group_main"
+            android:checkableBehavior="single">
 
         <item
                 android:id="@+id/destination_home"
@@ -18,6 +20,15 @@
                 android:icon="@drawable/outline_date_range_24"
                 android:title="Overview"/>
 
+    </group>
+
+    <group
+            android:id="@+id/group_secondary"
+            android:checkableBehavior="single">
+        <item
+                android:id="@+id/destination_settings"
+                android:icon="@drawable/outline_details_24"
+                android:title="Overview"/>
     </group>
 
 </menu>
