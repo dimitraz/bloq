@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/nav_drawer" />
+            app:menu="@menu/menu_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 
@@ -71,7 +71,7 @@
         <!--android:background="@color/white"-->
         <!--app:itemIconTint="@color/grey"-->
         <!--app:itemTextColor="@color/grey"-->
-        <!--app:menu="@menu/bottom_menu"-->
+        <!--app:menu="@menu/menu_bottom"-->
         <!--app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"-->
         <!--app:layout_constraintEnd_toEndOf="parent"/>-->
         <!--&lt;!&ndash;&ndash;&gt;-->

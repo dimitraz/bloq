@@ -95,7 +95,7 @@ class EntryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         menu?.clear()
-        inflater?.inflate(R.menu.entry_menu, menu)
+        inflater?.inflate(R.menu.menu_entry, menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
