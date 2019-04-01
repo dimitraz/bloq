@@ -42,19 +42,19 @@ class FirebaseStore(val context: Context) : JournalStore {
         key?.let {
             entry.fbId = key
             entries.add(entry)
-            db.child("users").child(userId).child("entries").child(key).setValue(entry)
+            db.child("journals").child(userId).child("entries").child(key).setValue(entry)
         }
         Log.d("Bloq", "Adding entry: ${entry.fbId}")
     }
 
     override fun update(entry: JournalEntry) {
         Log.d("Bloq", "Updating entry: ${entry.fbId} $entry")
-        db.child("users").child(userId).child("entries").child(entry.fbId).setValue(entry)
+        db.child("journals").child(userId).child("entries").child(entry.fbId).setValue(entry)
     }
 
     override fun delete(entry: JournalEntry) {
         Log.d("Bloq", "Deleting entry: ${entry.fbId}")
-        db.child("users").child(userId).child("entries").child(entry.fbId).removeValue()
+        db.child("journals").child(userId).child("entries").child(entry.fbId).removeValue()
         entries.remove(entry)
     }
 
@@ -72,6 +72,6 @@ class FirebaseStore(val context: Context) : JournalStore {
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         entries.clear()
-        db.child("users").child(userId).child("entries").addListenerForSingleValueEvent(valueEventListener)
+        db.child("journals").child(userId).child("entries").addListenerForSingleValueEvent(valueEventListener)
     }
 }
