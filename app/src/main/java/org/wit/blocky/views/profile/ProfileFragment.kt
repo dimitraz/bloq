@@ -66,22 +66,35 @@ class ProfileFragment : Fragment(), EntryListener {
 
         val fireStore = FirebaseStore(context!!)
         if (user == app.currentUser) {
+            // Set profile image listeners
+            profile_image.setOnClickListener {
+                startActivityForResult(imageIntent(), 2)
+            }
+            choose_image.setOnClickListener {
+                startActivityForResult(imageIntent(), 2)
+            }
+            choose_image.visibility = View.VISIBLE
+
             val following = user.following
             if (following.isEmpty()) {
                 following_text.text = "You are not currently following any users"
             } else {
+                showProgress()
                 for (item in following) {
                     fireStore.fetchAllEntries(item) {
                         viewModel.addAll(fireStore.allEntries)
                         adapter.notifyDataSetChanged()
+                        hideProgress()
                     }
                 }
             }
         } else {
+            showProgress()
             following_header.setText(R.string.header_entries)
             fireStore.fetchAllEntries(user.authId) {
                 viewModel.addAll(fireStore.allEntries)
                 adapter.notifyDataSetChanged()
+                hideProgress()
             }
         }
 
@@ -99,16 +112,6 @@ class ProfileFragment : Fragment(), EntryListener {
                 .load(user.photoUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(profile_image)
-        }
-
-        if (app.currentUser == user) {
-            profile_image.setOnClickListener {
-                startActivityForResult(imageIntent(), 2)
-            }
-
-            choose_image.setOnClickListener {
-                startActivityForResult(imageIntent(), 2)
-            }
         }
     }
 
@@ -129,6 +132,14 @@ class ProfileFragment : Fragment(), EntryListener {
     // Add listener for when an entry card is pressed
     override fun onEntryClick(position: Int, entry: JournalEntry) {
         Log.i("Bloq", "Entry: $entry")
+    }
+
+    private fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        progressBar.visibility = View.GONE
     }
 
     companion object {

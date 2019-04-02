@@ -69,12 +69,6 @@ class UserAdapter(
                     .load(user.photoUrl)
                     .apply(RequestOptions.circleCropTransform())
                     .into(itemView.user_image)
-            } else {
-                Glide
-                    .with(itemView.context)
-                    .load(R.drawable.image)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(itemView.user_image)
             }
         }
     }
