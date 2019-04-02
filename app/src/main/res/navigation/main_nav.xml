@@ -57,6 +57,6 @@
 
     <!-- Users fragment -->π
     <fragment android:id="@+id/destination_users" android:name="org.wit.blocky.views.users.UserFragment"
-              android:label=" " tools:layout="@layout/fragment_users"/>
+              android:label="All users" tools:layout="@layout/fragment_users"/>
 
 </navigation>
