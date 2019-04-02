@@ -12,5 +12,7 @@ data class JournalEntry(
     var prompts: MutableMap<String, String> = mutableMapOf(),
     var notes: String? = "",
     var image: String = "",
-    var category: String = "Personal"
+    var category: String = "Personal",
+    var authorName: String = "",
+    var authorId: String = ""
 ) : Serializable
