@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.card_follow.view.*
 import org.wit.blocky.R
 import org.wit.blocky.models.entry.JournalEntry
@@ -19,14 +18,14 @@ class ProfileAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileAdapter.MainHolder {
         return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(R.layout.card_follow, parent, false),
+            LayoutInflater.from(parent.context).inflate(R.layout.card_follow, parent, false),
             viewModel.results.value!!
         )
     }
 
     override fun getItemCount(): Int {
         val size = viewModel.results.value?.size
-        return if (size != null) size!! else {
+        return if (size != null) size else {
             0
         }
     }
@@ -43,11 +42,12 @@ class ProfileAdapter(
         RecyclerView.ViewHolder(itemView) {
         fun bind(entry: JournalEntry, listener: EntryListener) {
             itemView.entry_date.text = entry.date.toString()
-            itemView.entry_author.text = entry.authorName
             itemView.entry_category.setText(entry.category)
             itemView.setOnClickListener {
                 listener.onEntryClick(entries.indexOf(entry), entry)
             }
+
+            // Profile image
             if (entry.image.isNotEmpty()) {
                 itemView.entry_image.visibility = View.VISIBLE
                 Glide
@@ -56,6 +56,13 @@ class ProfileAdapter(
                     .into(itemView.entry_image)
             } else {
                 itemView.entry_image.visibility = View.GONE
+            }
+
+            // Author name
+            if (entry.authorName.isNotEmpty()) {
+                itemView.entry_author.text = entry.authorName
+            } else {
+                itemView.entry_author.setText(R.string.default_display_name)
             }
         }
     }

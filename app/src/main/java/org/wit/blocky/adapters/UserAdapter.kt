@@ -21,14 +21,14 @@ class UserAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.MainHolder {
         return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(R.layout.card_user, parent, false),
+            LayoutInflater.from(parent.context).inflate(R.layout.card_user, parent, false),
             app
         )
     }
 
     override fun getItemCount(): Int {
         val size = viewModel.users.value?.size
-        return if (size != null) size!! else {
+        return if (size != null) size else {
             0
         }
     }

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -79,7 +78,7 @@ class ProfileFragment : Fragment(), EntryListener {
                 }
             }
         } else {
-            following_header.text = "ENTRIES"
+            following_header.setText(R.string.header_entries)
             fireStore.fetchAllEntries(user.authId) {
                 viewModel.addAll(fireStore.allEntries)
                 adapter.notifyDataSetChanged()
@@ -87,7 +86,11 @@ class ProfileFragment : Fragment(), EntryListener {
         }
 
         // Name, email address, and profile photo Url
-        profile_name.text = user.displayName
+        if (user.displayName?.isNotEmpty()!!) {
+            profile_name.text = user.displayName
+        } else {
+            profile_name.setText(R.string.default_display_name)
+        }
         profile_email.text = user.email
 
         if (user.photoUrl.isNotEmpty()) {
@@ -98,12 +101,14 @@ class ProfileFragment : Fragment(), EntryListener {
                 .into(profile_image)
         }
 
-        profile_image.setOnClickListener {
-            startActivityForResult(imageIntent(), 2)
-        }
+        if (app.currentUser == user) {
+            profile_image.setOnClickListener {
+                startActivityForResult(imageIntent(), 2)
+            }
 
-        choose_image.setOnClickListener {
-            startActivityForResult(imageIntent(), 2)
+            choose_image.setOnClickListener {
+                startActivityForResult(imageIntent(), 2)
+            }
         }
     }
 
