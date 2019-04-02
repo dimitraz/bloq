@@ -57,7 +57,9 @@ class UserFragment : Fragment(), UserListener {
         user_list.layoutManager = LinearLayoutManager(activity)
         user_list.adapter = adapter
 
+        showProgress()
         viewModel.users.observe(this, Observer {
+            hideProgress()
             adapter.notifyDataSetChanged()
         })
     }
@@ -69,5 +71,13 @@ class UserFragment : Fragment(), UserListener {
             "user" to user
         )
         Navigation.findNavController(view!!).navigate(R.id.destination_profile, bundle)
+    }
+
+    private fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        progressBar.visibility = View.GONE
     }
 }
