@@ -11,11 +11,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.drawer_header.view.*
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.user.UserModel
 
@@ -27,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        app = application as MainApp
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         setupNavigation()
@@ -38,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = FirebaseAuth.getInstance()
-        app = application as MainApp
     }
 
     private fun setupNavigation() {
@@ -54,6 +58,25 @@ class MainActivity : AppCompatActivity() {
 
         // Tie nav graph to items in nav drawer
         setupWithNavController(navigationView, navController)
+
+        var nav = navigationView.getHeaderView(0)
+        nav.header_email.text = app.currentUser.email
+
+        // Nav drawer display name
+        if (app.currentUser.displayName?.isNotEmpty()!!) {
+            nav.header_name.text = app.currentUser.displayName
+        } else {
+            nav.header_name.setText(R.string.default_display_name)
+        }
+
+        // Nav drawer photo
+        if (app.currentUser.photoUrl.isNotEmpty()) {
+            Glide
+                .with(this)
+                .load(app.currentUser.photoUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(nav.imageView)
+        }
     }
 
     override fun onBackPressed() {
