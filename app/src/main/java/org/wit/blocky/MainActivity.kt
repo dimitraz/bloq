@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.user.UserModel
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient

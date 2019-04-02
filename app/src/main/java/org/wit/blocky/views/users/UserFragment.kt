@@ -18,10 +18,7 @@ import org.wit.blocky.adapters.UserAdapter
 import org.wit.blocky.adapters.UserListener
 import org.wit.blocky.databinding.FragmentUsersBinding
 import org.wit.blocky.main.MainApp
-import org.wit.blocky.models.CalendarDate
 import org.wit.blocky.models.user.UserModel
-import org.wit.blocky.views.entry.EntryFragment
-import org.wit.blocky.views.profile.ProfileFragment
 
 class UserFragment : Fragment(), UserListener {
 
