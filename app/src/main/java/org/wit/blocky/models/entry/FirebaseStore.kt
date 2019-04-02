@@ -15,11 +15,16 @@ import org.wit.blocky.models.CalendarDate
 class FirebaseStore(val context: Context) : JournalStore {
 
     val entries = ArrayList<JournalEntry>()
+    val allEntries = ArrayList<JournalEntry>()
     private lateinit var db: DatabaseReference
     private lateinit var userId: String
 
     override fun findAll(): List<JournalEntry> {
         return entries
+    }
+
+    fun findAllEntries(): List<JournalEntry> {
+        return allEntries
     }
 
     override fun findByDate(date: CalendarDate): JournalEntry? {
@@ -37,6 +42,14 @@ class FirebaseStore(val context: Context) : JournalStore {
 
     override fun create(entry: JournalEntry) {
         Log.d("Bloq", "Adding entry: $entry")
+        entry.authorId = userId
+
+        val name = FirebaseAuth.getInstance().currentUser!!.displayName
+        if (name != null) {
+            entry.authorName = FirebaseAuth.getInstance().currentUser!!.displayName!!
+        } else {
+            entry.authorName = "Jane Doe"
+        }
 
         val key = db.child("entries").push().key
         key?.let {
@@ -73,5 +86,23 @@ class FirebaseStore(val context: Context) : JournalStore {
         db = FirebaseDatabase.getInstance().reference
         entries.clear()
         db.child("journals").child(userId).child("entries").addListenerForSingleValueEvent(valueEventListener)
+    }
+
+    fun fetchAllEntries(id: String, entriesReady: () -> Unit) {
+        Log.d("Bloq", "fetching items for $id")
+
+        val valueEventListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.mapNotNullTo(allEntries) { it.getValue<JournalEntry>(JournalEntry::class.java) }
+                entriesReady()
+            }
+        }
+
+        db = FirebaseDatabase.getInstance().reference
+        allEntries.clear()
+        db.child("journals").child(id).child("entries").addListenerForSingleValueEvent(valueEventListener)
     }
 }
