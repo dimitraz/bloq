@@ -14,8 +14,8 @@ class UserViewModel(application: Application) : ViewModel() {
 
     init {
         app.users.fetchUsers {
-            Log.d("Bloq", "From user view model: ${app.users.users}")
-            users.value = app.users.users
+            Log.d("Bloq", "From user view model: ${app.users.findAll()}")
+            users.value = app.users.findAll()
         }
     }
 }

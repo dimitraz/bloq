@@ -15,8 +15,8 @@ class FirebaseUserStore(val context: Context) : UserStore {
     private lateinit var db: DatabaseReference
     private lateinit var userId: String
 
-    override fun findAll(): ArrayList<UserModel> {
-        return users
+    override fun findAll(): List<UserModel> {
+        return users.filter { p -> p.authId != userId }
     }
 
     override fun findByAuthId(authId: String): UserModel? {
