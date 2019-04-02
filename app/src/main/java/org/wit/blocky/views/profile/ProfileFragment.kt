@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -58,22 +57,6 @@ class ProfileFragment : Fragment(), EntryListener {
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = adapter
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        Log.i("Bloq", "Current user: $currentUser")
-
-        user = FirebaseAuth.getInstance().currentUser!!
-        user?.let {
-            // Name, email address, and profile photo Url
-            profile_name.text = user.displayName
-            profile_email.text = user.email
-
-            Glide
-                .with(this)
-                .load(user.photoUrl)
-                .apply(RequestOptions.circleCropTransform())
-                .into(profile_image)
-        }
-
         return binding.root
     }
 
@@ -92,6 +75,18 @@ class ProfileFragment : Fragment(), EntryListener {
                     adapter.notifyDataSetChanged()
                 }
             }
+        }
+
+        // Name, email address, and profile photo Url
+        profile_name.text = app.currentUser.displayName
+        profile_email.text = app.currentUser.email
+
+        if (app.currentUser.photoUrl.isNotEmpty()) {
+            Glide
+                .with(this)
+                .load(app.currentUser.photoUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(profile_image)
         }
 
         profile_image.setOnClickListener {
