@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.card_home.view.*
 import org.wit.blocky.R
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.entry.JournalEntry
 import org.wit.blocky.views.home.HomeViewModel
 
 class HomeAdapter(

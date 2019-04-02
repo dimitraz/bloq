@@ -20,6 +20,11 @@
                 android:icon="@drawable/outline_date_range_24"
                 android:title="@string/menu_overview"/>
 
+        <item
+                android:id="@+id/destination_profile"
+                android:icon="@drawable/outline_fiber_manual_record_24"
+                android:title="@string/menu_profile"/>
+
     </group>
 
     <group

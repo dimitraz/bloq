@@ -17,12 +17,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
 import org.wit.blocky.main.MainApp
-import org.wit.blocky.models.store.FirebaseStore
+import org.wit.blocky.models.entry.FirebaseStore
+import org.wit.blocky.models.user.FirebaseUserStore
+import org.wit.blocky.models.user.UserModel
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var fireStore: FirebaseStore
+    private lateinit var userStore: FirebaseUserStore
     private lateinit var auth: FirebaseAuth
     lateinit var app: MainApp
 
@@ -32,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         app = application as MainApp
         fireStore = app.entries
+        userStore = app.users
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -80,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                 googleSignIn(account!!)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Log.i("Bloq", "Google sign in failed: $e")
+                Log.d(TAG, "Google sign in failed: $e")
             }
         }
     }
@@ -91,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Google sign out
         googleSignInClient.signOut().addOnCompleteListener(this) {
-            Log.i("Bloq", "signed out")
+            Log.d(TAG, "signed out")
         }
     }
 
@@ -103,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
     private fun doLogin(email: String, password: String) {
         showProgress()
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-            doResult(task)
+            doResult(task, auth.currentUser?.uid)
         }
     }
 
@@ -112,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 showToast("Sign up successful")
+                doResult(task, auth.currentUser?.uid)
             } else {
                 showToast("${task.exception?.message}")
             }
@@ -137,17 +142,44 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun googleSignIn(acct: GoogleSignInAccount) {
-        Log.d("Bloq", "firebaseAuthWithGoogle:" + acct.id!!)
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
-                doResult(task)
+                doResult(task, auth.currentUser?.uid)
             }
     }
 
-    private fun doResult(task: Task<AuthResult>) {
+    private fun getOrCreateUser(authId: String?) {
+        if (authId != null && authId.isNotEmpty()) {
+            userStore.fetchUsers {
+                var user = userStore.findByAuthId(authId)
+                if (user != null) {
+                    Log.d(TAG, "Found user: $user")
+                } else {
+                    Log.d(TAG, "No user found, creating user")
+
+                    val currentUser = FirebaseAuth.getInstance().currentUser
+                    currentUser?.let {
+                        user = UserModel(
+                            photoUrl = currentUser.photoUrl.toString(),
+                            displayName = currentUser.displayName,
+                            email = currentUser.email!!,
+                            authId = authId
+                        )
+                        userStore.create(user!!)
+                    }
+                }
+                app.currentUser = user!!
+            }
+        }
+    }
+
+    private fun doResult(task: Task<AuthResult>, authId: String?) {
         if (task.isSuccessful) {
+            getOrCreateUser(authId)
+
             showToast("Login successful")
             fireStore.fetchEntries {
                 hideProgress()

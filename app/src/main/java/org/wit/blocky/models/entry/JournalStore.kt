@@ -1,7 +1,6 @@
-package org.wit.blocky.models.store
+package org.wit.blocky.models.entry
 
 import org.wit.blocky.models.CalendarDate
-import org.wit.blocky.models.JournalEntry
 
 interface JournalStore {
     fun findAll(): List<JournalEntry>

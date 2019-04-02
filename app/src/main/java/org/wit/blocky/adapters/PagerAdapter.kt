@@ -4,7 +4,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import org.wit.blocky.models.JournalEntry
+import org.wit.blocky.models.entry.JournalEntry
 import org.wit.blocky.views.entry.EntryFragment
 
 class PagerAdapter(fragmentManager: FragmentManager, private val entries: MutableList<JournalEntry>) :
