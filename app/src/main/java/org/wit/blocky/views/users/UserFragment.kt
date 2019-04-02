@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_users.*
 import org.wit.blocky.R
@@ -16,7 +18,10 @@ import org.wit.blocky.adapters.UserAdapter
 import org.wit.blocky.adapters.UserListener
 import org.wit.blocky.databinding.FragmentUsersBinding
 import org.wit.blocky.main.MainApp
+import org.wit.blocky.models.CalendarDate
 import org.wit.blocky.models.user.UserModel
+import org.wit.blocky.views.entry.EntryFragment
+import org.wit.blocky.views.profile.ProfileFragment
 
 class UserFragment : Fragment(), UserListener {
 
@@ -60,7 +65,12 @@ class UserFragment : Fragment(), UserListener {
         })
     }
 
-    override fun onUserClick(position: Int, user: UserModel) {
+    override fun onUserClick(user: UserModel) {
         Log.i("Bloq", "User clicked: $user")
+
+        val bundle = bundleOf(
+            "user" to user
+        )
+        Navigation.findNavController(view!!).navigate(R.id.destination_profile, bundle)
     }
 }

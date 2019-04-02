@@ -59,9 +59,9 @@ class UserAdapter(
                 }
             }
 
-//            itemView.setOnClickListener {
-//                listener.onUserClick(entries.indexOf(entry), user)
-//            }
+            itemView.setOnClickListener {
+                listener.onUserClick(user)
+            }
 
             if (user.photoUrl.isNotEmpty()) {
                 Glide
@@ -81,5 +81,5 @@ class UserAdapter(
 }
 
 interface UserListener {
-    fun onUserClick(position: Int, user: UserModel)
+    fun onUserClick(user: UserModel)
 }

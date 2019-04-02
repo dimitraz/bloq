@@ -1,7 +1,6 @@
 package org.wit.blocky.views.profile
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
@@ -25,18 +22,15 @@ import org.wit.blocky.helpers.imageIntent
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.entry.FirebaseStore
 import org.wit.blocky.models.entry.JournalEntry
+import org.wit.blocky.models.user.UserModel
 
 class ProfileFragment : Fragment(), EntryListener {
-
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
 
     private lateinit var app: MainApp
     private lateinit var viewModel: ProfileViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProfileAdapter
-    private lateinit var user: FirebaseUser
+    private lateinit var user: UserModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +39,13 @@ class ProfileFragment : Fragment(), EntryListener {
     ): View? {
         val binding: FragmentProfileBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+
+        app = activity!!.application as MainApp
+        user = app.currentUser
+        val bundle = arguments
+        if (bundle != null) {
+            user = bundle.getSerializable("user") as UserModel
+        }
 
         // Data binding
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
@@ -62,29 +63,36 @@ class ProfileFragment : Fragment(), EntryListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        app = activity!!.application as MainApp
 
-        val following = app.currentUser.following
-        if (following.isEmpty()) {
-            following_text.text = "You are not currently following any users"
-        } else {
-            val fireStore = FirebaseStore(context!!)
-            for (item in following) {
-                fireStore.fetchAllEntries(item) {
-                    viewModel.addAll(fireStore.allEntries)
-                    adapter.notifyDataSetChanged()
+        val fireStore = FirebaseStore(context!!)
+        if (user == app.currentUser) {
+            val following = user.following
+            if (following.isEmpty()) {
+                following_text.text = "You are not currently following any users"
+            } else {
+                for (item in following) {
+                    fireStore.fetchAllEntries(item) {
+                        viewModel.addAll(fireStore.allEntries)
+                        adapter.notifyDataSetChanged()
+                    }
                 }
+            }
+        } else {
+            following_header.text = "ENTRIES"
+            fireStore.fetchAllEntries(user.authId) {
+                viewModel.addAll(fireStore.allEntries)
+                adapter.notifyDataSetChanged()
             }
         }
 
         // Name, email address, and profile photo Url
-        profile_name.text = app.currentUser.displayName
-        profile_email.text = app.currentUser.email
+        profile_name.text = user.displayName
+        profile_email.text = user.email
 
-        if (app.currentUser.photoUrl.isNotEmpty()) {
+        if (user.photoUrl.isNotEmpty()) {
             Glide
                 .with(this)
-                .load(app.currentUser.photoUrl)
+                .load(user.photoUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(profile_image)
         }
@@ -92,36 +100,37 @@ class ProfileFragment : Fragment(), EntryListener {
         profile_image.setOnClickListener {
             startActivityForResult(imageIntent(), 2)
         }
+
+        choose_image.setOnClickListener {
+            startActivityForResult(imageIntent(), 2)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val uri = data?.data.toString()
-        viewModel.image = uri
-
-        Log.i("Bloq", "$uri, ${viewModel.image}")
 
         Glide
             .with(this)
-            .load(viewModel.image)
+            .load(uri)
             .apply(RequestOptions.circleCropTransform())
             .into(profile_image)
 
-        val profileUpdates = UserProfileChangeRequest.Builder()
-            .setDisplayName("Jane Q. User")
-            .setPhotoUri(Uri.parse(uri))
-            .build()
-
-        user?.updateProfile(profileUpdates)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.i("Bloq", "User profile updated.")
-                }
-            }
+        user.photoUrl = uri
+        app.users.update(user)
     }
 
     // Add listener for when an entry card is pressed
     override fun onEntryClick(position: Int, entry: JournalEntry) {
         Log.i("Bloq", "Entry: $entry")
     }
+
+    companion object {
+        fun newInstance(user: UserModel) = ProfileFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable("user", user)
+            }
+        }
+    }
+
 }

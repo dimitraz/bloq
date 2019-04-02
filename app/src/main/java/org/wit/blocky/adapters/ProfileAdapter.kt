@@ -1,5 +1,6 @@
 package org.wit.blocky.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,13 +49,13 @@ class ProfileAdapter(
                 listener.onEntryClick(entries.indexOf(entry), entry)
             }
             if (entry.image.isNotEmpty()) {
-                itemView.imageView.visibility = View.VISIBLE
+                itemView.entry_image.visibility = View.VISIBLE
                 Glide
                     .with(itemView.context)
                     .load(entry.image)
-                    .into(itemView.imageView)
+                    .into(itemView.entry_image)
             } else {
-                itemView.imageView.visibility = View.GONE
+                itemView.entry_image.visibility = View.GONE
             }
         }
     }

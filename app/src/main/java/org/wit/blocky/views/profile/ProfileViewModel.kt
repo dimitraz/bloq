@@ -7,7 +7,6 @@ import org.wit.blocky.models.entry.JournalEntry
 class ProfileViewModel : ViewModel() {
 
     val results = MutableLiveData<MutableList<JournalEntry>>()
-    var image: String = ""
 
     fun addAll(newResults: MutableList<JournalEntry>) {
         val list = mutableListOf<JournalEntry>()
