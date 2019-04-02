@@ -21,7 +21,8 @@ class UserAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.MainHolder {
         return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(R.layout.card_user, parent, false)
+            LayoutInflater.from(parent?.context).inflate(R.layout.card_user, parent, false),
+            app
         )
     }
 
@@ -45,6 +46,18 @@ class UserAdapter(
         fun bind(user: UserModel, listener: UserListener) {
             itemView.user_email.text = user.email
             itemView.user_name.text = user.displayName
+            itemView.user_follow.isChecked = app.currentUser.following.contains(user.authId)
+
+            itemView.user_follow.setOnClickListener {
+                val following = app.currentUser.following.contains(user.authId)
+                if (!following) {
+                    app.currentUser.following.add(user.authId)
+                    app.users.update(app.currentUser)
+                } else {
+                    app.currentUser.following.remove(user.authId)
+                    app.users.update(app.currentUser)
+                }
+            }
 
 //            itemView.setOnClickListener {
 //                listener.onUserClick(entries.indexOf(entry), user)
