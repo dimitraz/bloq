@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.ProfileAdapter
@@ -44,7 +45,7 @@ class ProfileFragment : Fragment(), EntryListener {
 
         // Load recycler view
         adapter = ProfileAdapter(viewModel, this)
-        recyclerView = binding.root.findViewById(R.id.followingList)
+        recyclerView = binding.root.findViewById(R.id.following_list)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = adapter
 
@@ -55,12 +56,16 @@ class ProfileFragment : Fragment(), EntryListener {
         super.onActivityCreated(savedInstanceState)
         app = activity!!.application as MainApp
 
-        val fireStore = FirebaseStore(context!!)
         val following = app.currentUser.following
-        for (item in following) {
-            fireStore.fetchAllEntries(item) {
-                viewModel.addAll(fireStore.allEntries)
-                adapter.notifyDataSetChanged()
+        if (following.isEmpty()) {
+            following_text.text = "You are not currently following any users"
+        } else {
+            val fireStore = FirebaseStore(context!!)
+            for (item in following) {
+                fireStore.fetchAllEntries(item) {
+                    viewModel.addAll(fireStore.allEntries)
+                    adapter.notifyDataSetChanged()
+                }
             }
         }
     }

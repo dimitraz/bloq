@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.wit.blocky.models.entry.JournalEntry
 
-
 class ProfileViewModel : ViewModel() {
     val results = MutableLiveData<MutableList<JournalEntry>>()
 
