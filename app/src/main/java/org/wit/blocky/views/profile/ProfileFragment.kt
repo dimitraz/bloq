@@ -14,9 +14,9 @@ import org.wit.blocky.R
 import org.wit.blocky.adapters.EntryListener
 import org.wit.blocky.adapters.ProfileAdapter
 import org.wit.blocky.databinding.FragmentProfileBinding
+import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.entry.FirebaseStore
 import org.wit.blocky.models.entry.JournalEntry
-import org.wit.blocky.models.user.FirebaseUserStore
 
 class ProfileFragment : Fragment(), EntryListener {
 
@@ -24,6 +24,7 @@ class ProfileFragment : Fragment(), EntryListener {
         fun newInstance() = ProfileFragment()
     }
 
+    private lateinit var app: MainApp
     private lateinit var viewModel: ProfileViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProfileAdapter
@@ -36,12 +37,14 @@ class ProfileFragment : Fragment(), EntryListener {
         val binding: FragmentProfileBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
+        // Data binding
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.vm = viewModel
 
-        recyclerView = binding.root.findViewById(R.id.followingList)
+        // Load recycler view
         adapter = ProfileAdapter(viewModel, this)
+        recyclerView = binding.root.findViewById(R.id.followingList)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         recyclerView.adapter = adapter
 
@@ -50,16 +53,11 @@ class ProfileFragment : Fragment(), EntryListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val userStore = FirebaseUserStore(context!!)
-        userStore.fetchUsers {
-            Log.i("Bloq", "Fetching..: ${userStore.findAll()}")
-        }
+        app = activity!!.application as MainApp
 
         val fireStore = FirebaseStore(context!!)
-
-        val testList = listOf("zuAeCCKSECRLmvnDR158rhctqgy2", "hEAAigvAWgc0uz0a4hTj2e9ORIR2")
-        for (item in testList) {
+        val following = app.currentUser.following
+        for (item in following) {
             fireStore.fetchAllEntries(item) {
                 viewModel.addAll(fireStore.allEntries)
                 adapter.notifyDataSetChanged()
@@ -69,6 +67,6 @@ class ProfileFragment : Fragment(), EntryListener {
 
     // Add listener for when an entry card is pressed
     override fun onEntryClick(position: Int, entry: JournalEntry) {
-        Log.i("Bloq", "test")
+        Log.i("Bloq", "Entry: $entry")
     }
 }
