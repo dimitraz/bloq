@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -48,7 +49,9 @@ class ProfileFragment : Fragment(), EntryListener {
         }
 
         // Data binding
-        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProviders.of(
+            this, ProfileViewModelFactory(activity!!.application)
+        ).get(ProfileViewModel::class.java)
         binding.setLifecycleOwner(this)
         binding.vm = viewModel
 
@@ -74,13 +77,21 @@ class ProfileFragment : Fragment(), EntryListener {
                 startActivityForResult(imageIntent(), 2)
             }
             choose_image.visibility = View.VISIBLE
+            profile_name.visibility = View.INVISIBLE
+            profile_name_edit.visibility = View.VISIBLE
+
+            viewModel.displayName.observe(this, Observer {
+                app.currentUser.displayName = viewModel.displayName.value
+                app.users.update(app.currentUser)
+            })
 
             val following = user.following
             if (following.isEmpty()) {
                 following_text.text = "You are not currently following any users"
+                hideProgress()
             } else {
-                showProgress()
                 for (item in following) {
+                    showProgress()
                     fireStore.fetchAllEntries(item) {
                         viewModel.addAll(fireStore.allEntries)
                         adapter.notifyDataSetChanged()
