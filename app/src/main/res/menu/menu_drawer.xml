@@ -21,6 +21,11 @@
                 android:title="@string/menu_overview"/>
 
         <item
+                android:id="@+id/destination_users"
+                android:icon="@drawable/outline_check_24"
+                android:title="@string/menu_users"/>
+
+        <item
                 android:id="@+id/destination_profile"
                 android:icon="@drawable/outline_fiber_manual_record_24"
                 android:title="@string/menu_profile"/>

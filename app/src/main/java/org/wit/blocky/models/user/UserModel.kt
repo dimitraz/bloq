@@ -8,5 +8,5 @@ data class UserModel(
     var photoUrl: String = "",
     var displayName: String? = "",
     var email: String = "",
-    var following: List<String> = listOf()
+    var following: MutableList<String> = mutableListOf()
 ) : Serializable
