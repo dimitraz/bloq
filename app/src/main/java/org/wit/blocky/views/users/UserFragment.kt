@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_users.*
 import org.wit.blocky.R
@@ -55,12 +57,27 @@ class UserFragment : Fragment(), UserListener {
         user_list.layoutManager = LinearLayoutManager(activity)
         user_list.adapter = adapter
 
+        showProgress()
         viewModel.users.observe(this, Observer {
+            hideProgress()
             adapter.notifyDataSetChanged()
         })
     }
 
-    override fun onUserClick(position: Int, user: UserModel) {
+    override fun onUserClick(user: UserModel) {
         Log.i("Bloq", "User clicked: $user")
+
+        val bundle = bundleOf(
+            "user" to user
+        )
+        Navigation.findNavController(view!!).navigate(R.id.destination_profile, bundle)
+    }
+
+    private fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        progressBar.visibility = View.GONE
     }
 }

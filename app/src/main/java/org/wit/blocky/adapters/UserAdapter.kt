@@ -21,14 +21,14 @@ class UserAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.MainHolder {
         return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(R.layout.card_user, parent, false),
+            LayoutInflater.from(parent.context).inflate(R.layout.card_user, parent, false),
             app
         )
     }
 
     override fun getItemCount(): Int {
         val size = viewModel.users.value?.size
-        return if (size != null) size!! else {
+        return if (size != null) size else {
             0
         }
     }
@@ -59,20 +59,14 @@ class UserAdapter(
                 }
             }
 
-//            itemView.setOnClickListener {
-//                listener.onUserClick(entries.indexOf(entry), user)
-//            }
+            itemView.setOnClickListener {
+                listener.onUserClick(user)
+            }
 
             if (user.photoUrl.isNotEmpty()) {
                 Glide
                     .with(itemView.context)
                     .load(user.photoUrl)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(itemView.user_image)
-            } else {
-                Glide
-                    .with(itemView.context)
-                    .load(R.drawable.image)
                     .apply(RequestOptions.circleCropTransform())
                     .into(itemView.user_image)
             }
@@ -81,5 +75,5 @@ class UserAdapter(
 }
 
 interface UserListener {
-    fun onUserClick(position: Int, user: UserModel)
+    fun onUserClick(user: UserModel)
 }

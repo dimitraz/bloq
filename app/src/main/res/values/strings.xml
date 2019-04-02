@@ -22,9 +22,16 @@
     <string name="toolbar_settings">Settings</string>
     <string name="toolbar_logout">Log out</string>
 
+    <!-- User profiles -->
+    <string name="header_entries">ENTRIES</string>
+    <string name="header_following">FOLLOWING</string>
+
     <!-- Image picker -->
     <string name="choose_image">Select Image</string>
 
     <!-- Log in -->
     <string name="web_client_id">62507420570-91h6gu1t9s74k846r335mldt99p2lhj4.apps.googleusercontent.com</string>
+
+    <!-- Defaults -->
+    <string name="default_display_name">Jane Doe</string>
 </resources>

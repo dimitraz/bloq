@@ -15,6 +15,7 @@
                 android:id="@+id/user_image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:background="@drawable/black_circle"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>

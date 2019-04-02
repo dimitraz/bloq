@@ -18,14 +18,14 @@ class ProfileAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileAdapter.MainHolder {
         return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(R.layout.card_follow, parent, false),
+            LayoutInflater.from(parent.context).inflate(R.layout.card_follow, parent, false),
             viewModel.results.value!!
         )
     }
 
     override fun getItemCount(): Int {
         val size = viewModel.results.value?.size
-        return if (size != null) size!! else {
+        return if (size != null) size else {
             0
         }
     }
@@ -42,19 +42,27 @@ class ProfileAdapter(
         RecyclerView.ViewHolder(itemView) {
         fun bind(entry: JournalEntry, listener: EntryListener) {
             itemView.entry_date.text = entry.date.toString()
-            itemView.entry_author.text = entry.authorName
             itemView.entry_category.setText(entry.category)
             itemView.setOnClickListener {
                 listener.onEntryClick(entries.indexOf(entry), entry)
             }
+
+            // Profile image
             if (entry.image.isNotEmpty()) {
-                itemView.imageView.visibility = View.VISIBLE
+                itemView.entry_image.visibility = View.VISIBLE
                 Glide
                     .with(itemView.context)
                     .load(entry.image)
-                    .into(itemView.imageView)
+                    .into(itemView.entry_image)
             } else {
-                itemView.imageView.visibility = View.GONE
+                itemView.entry_image.visibility = View.GONE
+            }
+
+            // Author name
+            if (entry.authorName.isNotEmpty()) {
+                itemView.entry_author.text = entry.authorName
+            } else {
+                itemView.entry_author.setText(R.string.default_display_name)
             }
         }
     }
