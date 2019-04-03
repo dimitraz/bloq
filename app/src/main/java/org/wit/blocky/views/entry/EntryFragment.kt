@@ -3,9 +3,6 @@ package org.wit.blocky.views.entry
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -17,7 +14,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_entry.*
 import org.wit.blocky.R
 import org.wit.blocky.adapters.PromptAdapter
@@ -38,18 +34,14 @@ class EntryFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
 
-        var date = CalendarDate(CalendarDay.today().day, CalendarDay.today().month, CalendarDay.today().year)
         val bundle = arguments
-        if (bundle != null) {
-            date = bundle.getSerializable("date") as CalendarDate
-        }
-
         val binding: FragmentEntryBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_entry, container, false)
 
         viewModel = ViewModelProviders.of(
-            this, EntryViewModelFactory(activity!!.application, date)
+            this, EntryViewModelFactory(activity!!.application, bundle)
         ).get(EntryViewModel::class.java)
+        binding.setLifecycleOwner(this)
         binding.viewModel = viewModel
 
         return binding.root
@@ -66,42 +58,45 @@ class EntryFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = PromptAdapter(app.template, viewModel)
 
+        entry_author.text = viewModel.entry!!.authorName
+
         // Show image
-        if (viewModel.entry.image.isNotEmpty()) {
+        if (viewModel.entry!!.image.isNotEmpty()) {
             showImage()
         } else {
             entry_image.visibility = View.GONE
         }
 
-        // Select entry image
-        choose_image.setOnClickListener {
-            viewModel.selectImage(this)
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.item_save -> {
-                viewModel.saveEntry()
-                nav.navigate(R.id.destination_home)
+        if (app.currentUser.authId != viewModel.entry!!.authorId) {
+            choose_image.visibility = View.GONE
+            checkBox.visibility = View.GONE
+            secondaryToolbar.visibility = View.GONE
+        } else {
+            // Select entry image
+            choose_image.setOnClickListener {
+                viewModel.selectImage(this)
             }
-            R.id.item_delete -> {
-                showDialog()
+
+            secondaryToolbar.inflateMenu(R.menu.menu_entry)
+            secondaryToolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.item_save -> {
+                        viewModel.saveEntry()
+                        nav.navigate(R.id.destination_home)
+                    }
+                    R.id.item_delete -> {
+                        showDialog()
+                    }
+                }
+                false
             }
         }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu?.clear()
-        inflater?.inflate(R.menu.menu_entry, menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
-            viewModel.entry.image = data.data.toString()
+            viewModel.entry!!.image = data.data.toString()
             showImage()
         }
     }
@@ -126,7 +121,7 @@ class EntryFragment : Fragment() {
         entry_image.visibility = View.VISIBLE
         Glide
             .with(this)
-            .load(viewModel.entry.image)
+            .load(viewModel.entry!!.image)
             .apply(centerCropTransform())
             .into(entry_image)
     }

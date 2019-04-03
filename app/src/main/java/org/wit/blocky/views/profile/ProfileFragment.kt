@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -90,8 +92,10 @@ class ProfileFragment : Fragment(), EntryListener {
                 following_text.text = "You are not currently following any users"
                 hideProgress()
             } else {
+                Log.i("Bloq", "item $following")
                 for (item in following) {
                     showProgress()
+                    Log.i("Bloq", "item $item")
                     fireStore.fetchAllEntries(item) {
                         viewModel.addAll(fireStore.allEntries)
                         adapter.notifyDataSetChanged()
@@ -143,6 +147,11 @@ class ProfileFragment : Fragment(), EntryListener {
     // Add listener for when an entry card is pressed
     override fun onEntryClick(position: Int, entry: JournalEntry) {
         Log.i("Bloq", "Entry: $entry")
+
+        val bundle = bundleOf(
+            "entry" to entry
+        )
+        Navigation.findNavController(view!!).navigate(R.id.destination_entry, bundle)
     }
 
     private fun showProgress() {

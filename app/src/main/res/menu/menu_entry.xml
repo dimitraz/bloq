@@ -14,19 +14,4 @@
             android:icon="@drawable/outline_close_24"
             app:showAsAction="always"/>
 
-    <item
-            android:id="@+id/empty"
-            android:icon="@drawable/outline_more_vert_24"
-            app:showAsAction="ifRoom"
-            android:title="@string/toolbar_settings">
-
-        <menu>
-            <item
-                    android:id="@+id/logout"
-                    app:showAsAction="ifRoom"
-                    android:title="@string/toolbar_logout"/>
-        </menu>
-
-    </item>
-
 </menu>
