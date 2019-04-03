@@ -21,11 +21,11 @@ class MainApp : Application() {
         users = FirebaseUserStore(applicationContext)
 
         template = mutableListOf(
-            "Question 1",
-            "Question 2",
-            "Question 3",
-            "Question 4",
-            "Question 5"
+            "What significant events happened today?",
+            "What did I do to achieve my goals today?",
+            "How did I overcome my hurdles today?",
+            "Three things to do tomorrow",
+            "What inspired me today?"
         )
 
         categories = mutableListOf(
