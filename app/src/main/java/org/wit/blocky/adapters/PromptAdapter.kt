@@ -28,7 +28,7 @@ class PromptAdapter(
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val prompt = prompts[holder.adapterPosition]
         holder.itemView.prompt.text = prompt
-        holder.itemView.answer.setText(entry.prompts[prompt])
+        holder.itemView.answer.setText(entry!!.prompts[prompt])
 
         holder.textListener.updatePosition(holder.adapterPosition)
         holder.itemView.answer.addTextChangedListener(holder.textListener)
@@ -48,7 +48,7 @@ class PromptAdapter(
 
         override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {
             val prompt = prompts[position]
-            entry.prompts[prompt] = charSequence.toString()
+            entry!!.prompts[prompt] = charSequence.toString()
         }
 
         override fun afterTextChanged(editable: Editable) {}
