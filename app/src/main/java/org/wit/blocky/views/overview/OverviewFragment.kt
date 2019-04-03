@@ -2,8 +2,6 @@ package org.wit.blocky.views.overview
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -47,12 +45,5 @@ class OverviewFragment : Fragment() {
 //                EventDecorator(context!!, R.color.colorPrimary, listOf(calendarView.selectedDate))
 //            )
 //        }
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu?.clear()
-        inflater?.inflate(R.menu.menu_toolbar, menu)
     }
 }
