@@ -1,6 +1,7 @@
 package org.wit.blocky.models.user
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -8,12 +9,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import org.wit.blocky.helpers.readImageFromPath
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 class FirebaseUserStore(val context: Context) : UserStore {
 
     val users = ArrayList<UserModel>()
-    private lateinit var db: DatabaseReference
     private lateinit var userId: String
+    private lateinit var db: DatabaseReference
+    private lateinit var st: StorageReference
 
     override fun findAll(): List<UserModel> {
         return users.filter { p -> p.authId != userId }
@@ -36,12 +43,17 @@ class FirebaseUserStore(val context: Context) : UserStore {
             users.add(user)
             db.child("users").child(key).setValue(user)
         }
+        updateImage(user)
+
         Log.d("Bloq", "Adding user: ${user.fbId}")
     }
 
     override fun update(user: UserModel) {
         Log.d("Bloq", "Updating user: ${user.fbId} $user")
         db.child("users").child(user.fbId).setValue(user)
+        if (user.photoUrl.isNotEmpty() && (user.photoUrl[0] != 'h')) {
+            updateImage(user)
+        }
     }
 
     override fun delete(user: UserModel) {
@@ -63,7 +75,35 @@ class FirebaseUserStore(val context: Context) : UserStore {
 
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
+        st = FirebaseStorage.getInstance().reference
         users.clear()
         db.child("users").addListenerForSingleValueEvent(valueEventListener)
+    }
+
+    private fun updateImage(user: UserModel) {
+        fetchUsers { }
+        if (user.photoUrl != "") {
+            val fileName = File(user.photoUrl)
+            val imageName = fileName.getName()
+
+            var imageRef = st.child("$userId/$imageName")
+            val baos = ByteArrayOutputStream()
+            val bitmap = readImageFromPath(context, user.photoUrl)
+
+            bitmap?.let {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val uploadTask = imageRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+                    println(it.message)
+                }.addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                        user.photoUrl = it.toString()
+                        db.child("users").child(user.fbId).setValue(user)
+                        Log.d("Bloq", "Updating user image: $user")
+                    }
+                }
+            }
+        }
     }
 }
