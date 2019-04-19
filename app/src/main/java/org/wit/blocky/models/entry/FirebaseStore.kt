@@ -113,6 +113,7 @@ class FirebaseStore(val context: Context) : JournalStore {
             }
         }
 
+        userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         st = FirebaseStorage.getInstance().reference
         allEntries.clear()

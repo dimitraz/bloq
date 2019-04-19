@@ -69,6 +69,10 @@ class ProfileFragment : Fragment(), EntryListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        editTags.setOnClickListener {
+            Navigation.findNavController(view!!).navigate(R.id.destination_tags)
+        }
+
         val fireStore = FirebaseStore(context!!)
         if (user == app.currentUser) {
             // Set profile image listeners

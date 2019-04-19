@@ -26,6 +26,11 @@
     <string name="header_entries">ENTRIES</string>
     <string name="header_following">FOLLOWING</string>
 
+    <!-- Edit Tags -->
+    <string name="tags_heading">Current tags</string>
+    <string name="tags_edit_text">Tag name</string>
+    <string name="tags_button">Add</string>
+
     <!-- Image picker -->
     <string name="choose_image">Select Image</string>
 

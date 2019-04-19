@@ -7,6 +7,7 @@ data class UserModel(
     var authId: String = "",
     var photoUrl: String = "",
     var displayName: String? = "",
+    var tags: MutableList<String> = mutableListOf(),
     var email: String = "",
     var following: MutableList<String> = mutableListOf()
 ) : Serializable

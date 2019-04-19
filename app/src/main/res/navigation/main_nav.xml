@@ -51,14 +51,19 @@
     <fragment android:id="@+id/destination_profile" android:name="org.wit.blocky.views.profile.ProfileFragment"
               android:label="Profile" tools:layout="@layout/fragment_profile">
         <action android:id="@+id/profile_to_entry" app:destination="@id/destination_entry"/>
+        <action android:id="@+id/profile_to_tags" app:destination="@id/destination_tags"/>
     </fragment>
 
     <!-- Settings fragment -->
     <fragment android:id="@+id/destination_settings" android:name="org.wit.blocky.views.settings.SettingsFragment"
               android:label=" " tools:layout="@layout/fragment_settings"/>
 
-    <!-- Users fragment -->π
+    <!-- Users fragment -->
     <fragment android:id="@+id/destination_users" android:name="org.wit.blocky.views.users.UserFragment"
               android:label="All users" tools:layout="@layout/fragment_users"/>
+
+    <!-- Tags fragment -->
+    <fragment android:id="@+id/destination_tags" android:name="org.wit.blocky.views.tags.TagFragment"
+              android:label="Edit tags" tools:layout="@layout/fragment_tags"/>
 
 </navigation>
