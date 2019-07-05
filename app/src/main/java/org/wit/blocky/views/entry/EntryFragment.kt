@@ -1,5 +1,6 @@
 package org.wit.blocky.views.entry
 
+import android.R.layout.simple_spinner_dropdown_item
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -25,13 +26,6 @@ import org.wit.blocky.adapters.PromptAdapter
 import org.wit.blocky.databinding.FragmentEntryBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.CalendarDate
-import android.R.layout.simple_spinner_dropdown_item
-import android.R.layout.simple_spinner_item
-import android.R.array
-import android.widget.Spinner
-
-
-
 
 class EntryFragment : Fragment() {
 
@@ -102,7 +96,6 @@ class EntryFragment : Fragment() {
                     } else {
                         // for other views
                         v!!.setBackgroundColor(Color.WHITE)
-
                     }
                     return v
                 }

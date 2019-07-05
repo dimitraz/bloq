@@ -11,8 +11,12 @@
         <menu>
             <item
                     android:id="@+id/logout"
-                    app:showAsAction="ifRoom"
                     android:title="@string/toolbar_logout"/>
+
+            <item
+                    android:id="@+id/tags"
+                    app:showAsAction="ifRoom"
+                    android:title="@string/toolbar_tags"/>
         </menu>
 
     </item>

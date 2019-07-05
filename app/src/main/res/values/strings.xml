@@ -21,6 +21,7 @@
     <!-- Toolbar menu -->
     <string name="toolbar_settings">Settings</string>
     <string name="toolbar_logout">Log out</string>
+    <string name="toolbar_tags">Manage tags</string>
 
     <!-- User profiles -->
     <string name="header_entries">ENTRIES</string>

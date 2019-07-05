@@ -10,11 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_tags.*
 import org.wit.blocky.R
-import org.wit.blocky.adapters.ProfileAdapter
 import org.wit.blocky.databinding.FragmentTagsBinding
 import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.entry.FirebaseStore
@@ -98,5 +96,4 @@ class TagFragment : Fragment() {
             alertDialog.dismiss()
         }
     }
-
 }

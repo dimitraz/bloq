@@ -1,28 +1,16 @@
 package org.wit.blocky
 
 import android.util.Log
-import android.view.View
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.PerformException
-import androidx.test.espresso.UiController
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.util.HumanReadables
-import androidx.test.espresso.util.TreeIterables
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import junit.framework.Assert.assertNotNull
-import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.TimeoutException
-
 
 @RunWith(AndroidJUnit4::class)
 class LogoutTest {
@@ -34,8 +22,8 @@ class LogoutTest {
     private val loginMonitor =
         getInstrumentation().addMonitor(LoginActivity::class.java!!.name, null, false)
 
-    private val username = "t@t.com"
-    private val correctPassword = "test"
+    private val username = "l@l.com"
+    private val correctPassword = "hello1"
 
     @Test
     fun testLogout() {
@@ -53,12 +41,12 @@ class LogoutTest {
             .perform(ViewActions.click())
 
         // Wait
-        Thread.sleep(10000)
+        Thread.sleep(5000)
 
         Espresso.onView(withId(R.id.empty))
             .perform(ViewActions.click())
 
-        Thread.sleep(3000)
+        Thread.sleep(1000)
 
         Espresso.onView(withId(R.id.logout))
             .perform(ViewActions.click())

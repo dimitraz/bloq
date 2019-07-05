@@ -83,6 +83,7 @@ class ProfileFragment : Fragment(), EntryListener {
                 startActivityForResult(imageIntent(), 2)
             }
             choose_image.visibility = View.VISIBLE
+            editTags.visibility = View.VISIBLE
             profile_name.visibility = View.INVISIBLE
             profile_name_edit.visibility = View.VISIBLE
 

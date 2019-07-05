@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -107,6 +108,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 app.currentUser = UserModel()
                 startActivity(Intent(this, LoginActivity::class.java))
+                return true
+            }
+            R.id.tags -> {
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.destination_tags)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

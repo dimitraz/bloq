@@ -58,7 +58,6 @@ class TagViewModel(application: Application) : ViewModel() {
         app.users.update(app.currentUser)
         tags.value = list.asSequence().distinct().toMutableList()
     }
-
 }
 
 class TagViewModelFactory(private val application: Application) :

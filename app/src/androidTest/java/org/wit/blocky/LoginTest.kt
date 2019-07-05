@@ -24,9 +24,9 @@ class LoginTest {
     private val loginMonitor =
         getInstrumentation().addMonitor(LoginActivity::class.java!!.name, null, false)
 
-    private val username = "t@t.com"
-    private val correctPassword = "test"
-    private val wrongPassword = "password123"
+    private val username = "l@l.com"
+    private val correctPassword = "hello1"
+    private val wrongPassword = "test"
 
     @Test
     fun testLoginSuccessful() {
@@ -63,6 +63,8 @@ class LoginTest {
 
         Espresso.onView(withId(R.id.logIn))
             .perform(ViewActions.click())
+
+        Thread.sleep(3000)
 
         val loginActivity = getInstrumentation().waitForMonitorWithTimeout(loginMonitor, 5000)
         assertNotNull(loginActivity)

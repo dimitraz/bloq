@@ -11,7 +11,10 @@ import androidx.navigation.Navigation
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_overview.*
 import org.wit.blocky.R
+import org.wit.blocky.decorators.EventDecorator
+import org.wit.blocky.main.MainApp
 import org.wit.blocky.models.CalendarDate
+import org.wit.blocky.models.entry.FirebaseStore
 
 class OverviewFragment : Fragment() {
 
@@ -20,6 +23,8 @@ class OverviewFragment : Fragment() {
     }
 
     private lateinit var viewModel: OverviewViewModel
+    private lateinit var app: MainApp
+    private lateinit var fireStore: FirebaseStore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +36,8 @@ class OverviewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        app = activity!!.application as MainApp
+        fireStore = FirebaseStore(context!!)
         viewModel = ViewModelProviders.of(this).get(OverviewViewModel::class.java)
 
         calendarView.state().edit().setMaximumDate(CalendarDay.today()).commit()
@@ -40,10 +47,16 @@ class OverviewFragment : Fragment() {
             )
             Navigation.findNavController(view!!).navigate(R.id.overview_to_entry, bundle)
         }
-//        calendarView.setOnDateChangedListener { _, _, _ ->
-//            calendarView.addDecorator(
-//                EventDecorator(context!!, R.color.colorPrimary, listOf(calendarView.selectedDate))
-//            )
-//        }
+
+        val dates: MutableList<CalendarDay> = mutableListOf()
+        fireStore.fetchAllEntries(app.currentUser.authId) {
+            for (item in fireStore.allEntries) {
+                val date = CalendarDay.from(item.date.year, item.date.month, item.date.day)
+                dates.add(date)
+            }
+            calendarView.addDecorator(
+                EventDecorator(context!!, R.color.colorPrimary, dates)
+            )
+        }
     }
 }

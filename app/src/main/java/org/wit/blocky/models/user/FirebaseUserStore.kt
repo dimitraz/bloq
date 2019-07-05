@@ -84,7 +84,7 @@ class FirebaseUserStore(val context: Context) : UserStore {
         fetchUsers { }
         if (user.photoUrl != "") {
             val fileName = File(user.photoUrl)
-            val imageName = fileName.getName()
+            val imageName = fileName.name
 
             var imageRef = st.child("$userId/$imageName")
             val baos = ByteArrayOutputStream()

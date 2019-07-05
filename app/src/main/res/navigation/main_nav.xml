@@ -21,6 +21,7 @@
         <action android:id="@+id/to_destination_entry" app:destination="@id/destination_entry"/>
         <action android:id="@+id/to_destination_entry_pager" app:destination="@id/destination_entry_pager"/>
         <action android:id="@+id/to_destination_profile" app:destination="@id/destination_profile"/>
+        <action android:id="@+id/action_destination_home_to_destination_tags" app:destination="@id/destination_tags"/>
     </fragment>
 
     <!-- Overview fragment -->
